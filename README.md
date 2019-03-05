@@ -35,59 +35,52 @@ ActiveStorage
 ## Models 
 
 #### USER
-`
-id SERIAL PRIMARY KEY,  
-username VARCHAR(128),  
-email TEXT,  
-bio TEXT,    
-password_digest VARCHAR(60),  
-is_admin BOOLEAN NOT NULL DEFAULT FALSE,  
-local_avatar BOOLEAN NOT NULL DEFAULT FALSE,  
-collaborators INTEGER NOT NULL DEFAULT 0,  
-has_one_attached: :avatar_image   
-`
-#### ERROR 
-`
-id SERIAL PRIMARY KEY,  
-description TEXT,  
-links TEXT,  
-tags VARCHAR(255),  
-user_id REFERENCES FOREIGN KEY user(id),  
-has_many_attached: :error_images    
-`
+id SERIAL PRIMARY KEY,
+username VARCHAR(128),
+email TEXT,
+bio TEXT,
+password_digest VARCHAR(60),
+is_admin BOOLEAN NOT NULL DEFAULT FALSE,
+collaborators INTEGER NOT NULL DEFAULT 0,
+has_one_attached :avatar_image 
+
+#### ERROR
+id SERIAL PRIMARY KEY,
+description TEXT,
+links TEXT,
+tags VARCHAR(255),
+user_id REFERENCES FOREIGN KEY user(id),
+has_many_attached :error_images  
+
 #### MESSAGE 
-`
-id SERIAL PRIMARY KEY,  
-to_user_id REFERENCES FOREIGN KEY user(id),  
-from_user_id REFERENCES FOREIGN KEY user(id),  
-content TEXT,  
-has_many_attached: :message_images   
-`
+id SERIAL PRIMARY KEY,
+to_user_id REFERENCES FOREIGN KEY user(id),
+from_user_id REFERENCES FOREIGN KEY user(id),
+content TEXT,
+has_many_attached :message_images 
+
 #### ERROR_IMAGE_URL
-`
-id SERIAL PRIMARY KEY,  
-url TEXT,   
-size INTEGER,  
-user_id INTEGER REFERENCES FOREIGN KEY user(id),  
-error_id INTEGER REFERENCES FOREIGN KEY error(id)  
-`
+id SERIAL PRIMARY KEY,
+url TEXT,
+size INTEGER,
+user_id INTEGER REFERENCES FOREIGN KEY user(id),
+error_id INTEGER REFERENCES FOREIGN KEY error(id)
+
 #### MESSAGE_IMAGE_URL
-`
-id SERIAL PRIMARY KEY,  
-url TEXT,  
-size INTEGER,  
-from_user_id INTEGER REFERENCES FOREIGN KEY user(id),  
-to_user_id INTEGER REFERENCES FOREIGN KEY user(id),  
-`
+id SERIAL PRIMARY KEY,
+url TEXT,
+size INTEGER,
+from_user_id INTEGER REFERENCES FOREIGN KEY user(id),
+to_user_id INTEGER REFERENCES FOREIGN KEY user(id)
 
 ### Through Tables
 
 #### COLLABORATORS
-`
-id SERIAL PRIMARY KEY,  
-user_id INTEGER REFERENCES FOREIGN KEY user(id),  
-collaborator_id INTEGER REFERENCES FOREIGN KEY user(id)  
-`
+
+id SERIAL PRIMARY KEY,
+user_id INTEGER REFERENCES FOREIGN KEY user(id),
+collaborator_id INTEGER REFERENCES FOREIGN KEY user(id)
+
 
 ### Relations 
 User has many errors  
