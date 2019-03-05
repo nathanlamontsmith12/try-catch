@@ -8,7 +8,7 @@ Ruby
 Frontend: 
 React 
 
-Database: 
+Database:  
 ActiveRecord  
 ActiveStorage 
 
@@ -106,13 +106,13 @@ Image belongs to error
 
 ## Wireframes 
 ### Home 
-
+![home](https://github.com/nathanlamontsmith12/try-catch/blob/master/wireframes/1-home.png)
 ### Errors 
-
+![errors](https://github.com/nathanlamontsmith12/try-catch/blob/master/wireframes/2-errors.png)
 ### Collab 
-
+![collab](https://github.com/nathanlamontsmith12/try-catch/blob/master/wireframes/3-collab.png)
 ### Profile 
-
+![profile](https://github.com/nathanlamontsmith12/try-catch/blob/master/wireframes/4-profile.png)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
