@@ -9,21 +9,21 @@ Frontend:
 React 
 
 Database: 
-ActiveRecord 
+ActiveRecord  
 ActiveStorage 
 
 
 ## Functionality 
-Users have profile with customizable thumbnail image avatar 
-Users can create error pages, which have status active or status resolved  
-Users can sort their error pages 
-Users can update error status
-Users can add images, notes, tags to their error pages
-Users can remove images, notes, and tags from error pages 
-Users can delete error pages
-Users can search and add other users as collaborators (if both users agree)
-Users can share chosen errors with chosen collaborators  
-Collaborators can update shared errors with notes and screenshots 
+* Users have profile with customizable thumbnail image avatar 
+* Users can create error pages, which have status active or status resolved  
+* Users can sort their error pages 
+* Users can update error status
+* Users can add images, notes, tags to their error pages
+* Users can remove images, notes, and tags from error pages 
+* Users can delete error pages
+* Users can search and add other users as collaborators (if both users agree)
+* Users can share chosen errors with chosen collaborators  
+* Collaborators can update shared errors with notes and screenshots 
 
 ### Stretch 
 * Auto-generate some stats that track user's errors 
@@ -83,26 +83,26 @@ to_user_id INTEGER REFERENCES FOREIGN KEY user(id),
 ### Through Tables
 
 #### COLLABORATORS
-` 
+`
 id SERIAL PRIMARY KEY,
 user_id INTEGER REFERENCES FOREIGN KEY user(id),
 collaborator_id INTEGER REFERENCES FOREIGN KEY user(id)
 `
 
 ### Relations 
-User has many errors 
+User has many errors  
 Error belongs to User 
 
-User has many collaborators 
+User has many collaborators  
 Collaborator belongs to user 
 
-User has many messages 
+User has many messages  
 Message belongs to User 
 
-Message has many images 
+Message has many images  
 Image belongs to message 
 
-Error has many images 
+Error has many images  
 Image belongs to error 
 
 
