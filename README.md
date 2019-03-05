@@ -105,6 +105,14 @@ Image belongs to error
 
 
 ## Wireframes 
+### Home 
+
+### Errors 
+
+### Collab 
+
+### Profile 
+
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
