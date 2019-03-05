@@ -1,68 +1,112 @@
+# Try / Catch 
+
+An error assistance app for programmers 
+
+Backend: 
+Ruby 
+
+Frontend: 
+React 
+
+Database: 
+ActiveRecord 
+ActiveStorage 
+
+
+## Functionality 
+Users have profile with customizable thumbnail image avatar 
+Users can create error pages, which have status active or status resolved  
+Users can sort their error pages 
+Users can update error status
+Users can add images, notes, tags to their error pages
+Users can remove images, notes, and tags from error pages 
+Users can delete error pages
+Users can search and add other users as collaborators (if both users agree)
+Users can share chosen errors with chosen collaborators  
+Collaborators can update shared errors with notes and screenshots 
+
+### Stretch 
+* Auto-generate some stats that track user's errors 
+* Users can send and receive messages from collaborators 
+* Users can add images to their messages 
+* Integration of third-party API (StackOverflow)
+
+
+## Models 
+
+#### USER
+`
+id SERIAL PRIMARY KEY, 
+username VARCHAR(128), 
+email TEXT, 
+bio TEXT,  
+password_digest VARCHAR(60),
+is_admin BOOLEAN NOT NULL DEFAULT FALSE, 
+local_avatar BOOLEAN NOT NULL DEFAULT FALSE,
+collaborators INTEGER NOT NULL DEFAULT 0,
+has_one_attached: :avatar_image 
+`
+#### ERROR 
+`
+id SERIAL PRIMARY KEY, 
+description TEXT, 
+links TEXT,
+tags VARCHAR(255),
+user_id REFERENCES FOREIGN KEY user(id),
+has_many_attached: :error_images  
+`
+#### MESSAGE 
+`
+id SERIAL PRIMARY KEY,
+to_user_id REFERENCES FOREIGN KEY user(id),
+from_user_id REFERENCES FOREIGN KEY user(id),
+content TEXT,
+has_many_attached: :message_images 
+`
+#### ERROR_IMAGE_URL
+`
+id SERIAL PRIMARY KEY,
+url TEXT, 
+size INTEGER,
+user_id INTEGER REFERENCES FOREIGN KEY user(id),
+error_id INTEGER REFERENCES FOREIGN KEY error(id)
+`
+#### MESSAGE_IMAGE_URL
+`
+id SERIAL PRIMARY KEY,
+url TEXT,
+size INTEGER,
+from_user_id INTEGER REFERENCES FOREIGN KEY user(id),
+to_user_id INTEGER REFERENCES FOREIGN KEY user(id),
+`
+
+### Through Tables
+
+#### COLLABORATORS
+` 
+id SERIAL PRIMARY KEY,
+user_id INTEGER REFERENCES FOREIGN KEY user(id),
+collaborator_id INTEGER REFERENCES FOREIGN KEY user(id)
+`
+
+### Relations 
+User has many errors 
+Error belongs to User 
+
+User has many collaborators 
+Collaborator belongs to user 
+
+User has many messages 
+Message belongs to User 
+
+Message has many images 
+Image belongs to message 
+
+Error has many images 
+Image belongs to error 
+
+
+## Wireframes 
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
