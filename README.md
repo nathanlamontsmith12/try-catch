@@ -2,10 +2,10 @@
 
 An error assistance app for programmers 
 
-Backend: 
+Backend:  
 Ruby 
 
-Frontend: 
+Frontend:  
 React 
 
 Database:  
