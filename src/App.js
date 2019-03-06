@@ -1,20 +1,38 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Link } from "react-router-dom";
+import styled from 'styled-components';
 
+// Components: 
+import Footer from './presentational/footer';
+import Header from './presentational/header';
+import Nav from './presentational/nav';
+import Home from './home';
+
+// Styles: 
+const StyledMain = styled.main`
+  background: slategray;
+`
 
 class App extends Component {
-  render() {
+    constructor(){
+        super();
+        this.state = {
+            page: "home"
+        }
+    }
+    render() {
     return (
-      <div className="App">
-        <section>
-          <Switch>
-            <Route exact path="/" render={ (props) => <Home />} />
-          </Switch>
-        </section>
-      </div>
-    );
-  }
+        <div className="App">
+            { this.state.page === "home" ? <Header /> : null }
+            <StyledMain>
+                <Switch>
+                    <Route exact path="/" render={ (props) => <Home /> } />
+                </Switch>
+            </StyledMain>
+            <Footer />
+        </div>
+    )}
 }
 
 export default App;
