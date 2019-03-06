@@ -13,14 +13,19 @@ const StyledDiv = styled.div `
 	background: rgba(255, 99, 71, 0.8); 
 	height: 100%;
 
+	div {
+		height: 100%;
+	}
+
+	.center {
+		display: flex;
+		justify-content: center;
+	}
+
 	section {
 		width: 70%;
 		opacity: 0.9;
 		background: white;
-	}
-
-	section div {
-
 	}
 `
 
@@ -43,21 +48,11 @@ class Home extends Component {
 		console.log("REGISTER: ", formData);
 	}
 	render(){
-
-		let h1InnerText = "";
-
-		if (this.state.view === "login") {
-			h1InnerText = "Log In"
-		} else if (this.state.view === "reg") {
-			h1InnerText = "Create Account"
-		}
-
 		return (
 			<StyledDiv>
 				<section className="fullHeight">
 					<Nav view={this.state.view} changeView={this.changeView} />
-					<div className="fullHeight">
-						<h2> { h1InnerText } </h2>
+					<div className="center">
 						{ this.state.view === "about" ? 
 							
 							<About /> 

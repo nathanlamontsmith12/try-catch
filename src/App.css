@@ -4,7 +4,7 @@
 
 body {
 	height: 100vh;
-	min-width: 300px;
+	min-width: 350px;
 	background: azure;
 }
 
@@ -65,6 +65,10 @@ main {
 	height: 100%;
 }
 
-.fullWidth {
+/*.fullWidth {
 	width: 100%;
+}*/
+
+.aboutText {
+	margin-right: 40px;
 }

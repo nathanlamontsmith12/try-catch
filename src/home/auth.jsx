@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div `
+	height: 100%;
+	margin-top: 40px;
+
 	input {
 		display: block;
+		height: 20px;
+		margin: 20px;
 	}
 `
 
@@ -87,26 +92,29 @@ class Auth extends Component {
 	// 	})
 	// }
 	render() {
+
+		let h2InnerText = "";
+
+		if (this.props.view === "reg") {
+			h2InnerText = "create account"
+		} else {
+			h2InnerText = "log in"
+		}
+
 		return (
 			<StyledDiv>
+				<h2> { h2InnerText } </h2>
 				{ this.state.message ? <h4> {this.state.message} </h4> : <h4> &nbsp; </h4>}
 				<form> 
 					<input name="username" type="text" value={this.state.username} onChange={this.handleChange} placeholder="Enter username..." /> 
 					{ this.props.view === "reg" ? <input name="email" type="email" value={this.state.email} onChange={this.handleChange} placeholder="Enter email..." /> : null }
 					<input name="password" type="password" value={this.state.password} onChange={this.handleChange} placeholder="Enter password..."/>
 					{ this.props.view === "reg" ? <input name="confirmation" type="password" value={this.state.confirmation} onChange={this.handleChange} placeholder="Confirm password..." /> : null }
-					{ this.props.view === "reg" ? <button onClick={this.submit.bind(null, "reg")}> make account </button> : <button onClick={this.submit.bind(null, "login")}> log in </button>}
+					{ this.props.view === "reg" ? <button onClick={this.submit.bind(null, "reg")}> register </button> : <button onClick={this.submit.bind(null, "login")}> log in </button>}
 				</form>
 			</StyledDiv>
 		)
 	}
 }
-
-	// view={this.state.view} 
-	// handleChange={this.handleChange} 
-	// submit={this.submit} 
-	// login={this.login} 
-	// register={this.register} 
-
 
 export default Auth;
