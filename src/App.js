@@ -13,7 +13,9 @@ class App extends Component {
     constructor(){
         super();
         this.state = {
-            page: "home"
+            loggedIn: false,
+            username: "",
+            userId: ""
         }
     }
     render() {
@@ -21,8 +23,9 @@ class App extends Component {
         <div className="App">
             <Header /> 
             <main>
+                { this.state.loggedIn ? <Nav /> : null }
                 <Switch>
-                    <Route exact path="/" render={ (props) => <Home /> } />
+                    <Route exact path="/" render={ (props) => <Home /> } />  
                 </Switch>
             </main>
             <Footer />

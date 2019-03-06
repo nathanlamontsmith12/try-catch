@@ -3,14 +3,49 @@
 }
 
 body {
-	background: rgba(255, 99, 71);
-	min-height: 500px;
-	min-width: 400px;
+	height: 100vh;
+	background: azure;
+}
+
+footer, header {
+	height: 80px;
+	display: flex;
+	width: 100%;
+}
+
+header {
+	align-items: flex-end;
+	justify-content: flex-start;
+	margin-left: 4%;
+}
+
+footer {
+	align-items: flex-start;
+	justify-content: flex-end;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+
+footer div {
+	width: 30%;
+	display: inline-block;
+}
+
+header span, footer span {
+		color: gray;
+}
+
+h1 {
+	font-size: 40px;
+	color: crimson;
+	margin-left: 60px;
+	display: inline-block;
+	padding: 10px;
 }
 
 main {
-	background: azure;
-	height: 60vh;
+	height: calc(100vh - 152px);
 }
 
 .fakeLink {
@@ -25,4 +60,20 @@ main {
 
 .fullHeight {
 	height: 100%;
+}
+
+.fullWidth {
+	width: 100%;
+}
+
+@media (width: 400px), {
+	body {
+		width: 400px;
+	}
+}
+
+@media (height: 500px) {
+	body {
+		height: 500px;
+	}
 }

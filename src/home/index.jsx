@@ -53,7 +53,7 @@ class Home extends Component {
 				<section className="fullHeight">
 					<div className="fullHeight">
 						<Nav view={this.state.view} changeView={this.changeView} />
-						<h1> { h1InnerText } </h1>
+						<h2> { h1InnerText } </h2>
 						{ this.state.view === "about" ? <About /> :
 							<Auth 
 								view={this.state.view} 
