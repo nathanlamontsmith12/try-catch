@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Link } from "react-router-dom";
-import styled from 'styled-components';
 
 // Components: 
 import Footer from './presentational/footer';
@@ -9,10 +8,6 @@ import Header from './presentational/header';
 import Nav from './presentational/nav';
 import Home from './home';
 
-// Styles: 
-const StyledMain = styled.main`
-  background: whitesmoke;
-`
 
 class App extends Component {
     constructor(){
@@ -25,11 +20,11 @@ class App extends Component {
     return (
         <div className="App">
             <Header /> 
-                <StyledMain>
-                    <Switch>
-                        <Route exact path="/" render={ (props) => <Home /> } />
-                    </Switch>
-                </StyledMain>
+            <main>
+                <Switch>
+                    <Route exact path="/" render={ (props) => <Home /> } />
+                </Switch>
+            </main>
             <Footer />
         </div>
     )}

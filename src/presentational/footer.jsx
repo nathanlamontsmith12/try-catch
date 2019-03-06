@@ -6,14 +6,14 @@ const StyledFooter = styled.footer `
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: tomato;
-	color: whitesmoke;
+	background: rgba(255, 99, 71);
+	color: slategray;
+	height: 8vh;
 `
 
 function Footer (props) {
 	return (
 		<StyledFooter>
-			<p> Footer </p>
 		</StyledFooter>
 	)
 }

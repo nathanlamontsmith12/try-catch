@@ -10,10 +10,13 @@ const StyledDiv = styled.div `
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background: rgba(112, 128, 144, 0.8);
+	height: 100%;
 
 	section {
 		width: 50%;
 		opacity: 0.8;
+		background: whitesmoke;
 	}
 `
 
@@ -21,24 +24,13 @@ class Home extends Component {
 	constructor(){
 		super();
 		this.state = {
-			view: "reg", 
-			username: "",
-			email: "",
-			password: "",
-			confirmation: ""
+			view: "reg"
 		}
 	}
 	changeView = (view) => {
 		this.setState({
 			view: view 
 		})
-	}
-	handleChange = (evt) => {
-		console.log(evt);
-	}
-	submit = (evt, route) => {
-		evt.preventDefault();
-		console.log(evt);
 	}
 	login = (formData) => {
 		console.log("LOGIN: ", formData);
@@ -58,18 +50,18 @@ class Home extends Component {
 
 		return (
 			<StyledDiv>
-				<section>
-					<Nav view={this.state.view} changeView={this.changeView} />
-					<h1> { h1InnerText } </h1>
-					{ this.state.view === "about" ? <About /> :
-						<Auth 
-							view={this.state.view} 
-							handleChange={this.handleChange} 
-							submit={this.submit} 
-							login={this.login} 
-							register={this.register} 
-						/>  
-					}
+				<section className="fullHeight">
+					<div className="fullHeight">
+						<Nav view={this.state.view} changeView={this.changeView} />
+						<h1> { h1InnerText } </h1>
+						{ this.state.view === "about" ? <About /> :
+							<Auth 
+								view={this.state.view} 
+								login={this.login} 
+								register={this.register} 
+							/>  
+						}
+					</div>
 				</section>
 			</StyledDiv>
 		)
