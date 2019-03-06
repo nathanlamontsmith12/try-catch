@@ -11,7 +11,7 @@ import Home from './home';
 
 // Styles: 
 const StyledMain = styled.main`
-  background: slategray;
+  background: whitesmoke;
 `
 
 class App extends Component {
@@ -24,12 +24,12 @@ class App extends Component {
     render() {
     return (
         <div className="App">
-            { this.state.page === "home" ? <Header /> : null }
-            <StyledMain>
-                <Switch>
-                    <Route exact path="/" render={ (props) => <Home /> } />
-                </Switch>
-            </StyledMain>
+            <Header /> 
+                <StyledMain>
+                    <Switch>
+                        <Route exact path="/" render={ (props) => <Home /> } />
+                    </Switch>
+                </StyledMain>
             <Footer />
         </div>
     )}

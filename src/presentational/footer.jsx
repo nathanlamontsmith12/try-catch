@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 // Styles: 
@@ -6,7 +6,8 @@ const StyledFooter = styled.footer `
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: red;
+	background: tomato;
+	color: whitesmoke;
 `
 
 function Footer (props) {

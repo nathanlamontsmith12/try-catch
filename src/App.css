@@ -1,1 +1,8 @@
-/* nope */
+.fakeLink {
+	text-decoration: underline;
+}
+
+.fakeLink:hover {
+	color: blue;
+	cursor: pointer;
+}
