@@ -10,13 +10,17 @@ const StyledDiv = styled.div `
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: rgba(112, 128, 144, 0.8);
+	background: rgba(255, 99, 71, 0.8); 
 	height: 100%;
 
 	section {
-		width: 50%;
-		opacity: 0.8;
-		background: whitesmoke;
+		width: 70%;
+		opacity: 0.9;
+		background: white;
+	}
+
+	section div {
+
 	}
 `
 
@@ -51,10 +55,15 @@ class Home extends Component {
 		return (
 			<StyledDiv>
 				<section className="fullHeight">
+					<Nav view={this.state.view} changeView={this.changeView} />
 					<div className="fullHeight">
-						<Nav view={this.state.view} changeView={this.changeView} />
 						<h2> { h1InnerText } </h2>
-						{ this.state.view === "about" ? <About /> :
+						{ this.state.view === "about" ? 
+							
+							<About /> 
+
+							:
+							
 							<Auth 
 								view={this.state.view} 
 								login={this.login} 

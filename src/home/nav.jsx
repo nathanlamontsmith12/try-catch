@@ -5,7 +5,8 @@ const StyledNav = styled.nav `
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	height: 60px;
+	height: 80px;
+	font-size: 20px;
 `
 
 function Nav (props) {
