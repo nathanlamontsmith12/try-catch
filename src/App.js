@@ -1,28 +1,53 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Route, Switch, Link } from "react-router-dom";
+
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <section>
+          <Switch>
+            <Route exact path="/" render={ (props) => <Home />} />
+          </Switch>
+        </section>
       </div>
     );
   }
 }
 
 export default App;
+
+    // return (
+    //   <main>
+    //     <Header authData={authData} setLogOut={this.setLogOut} />
+    //     <div className="mainCon">
+    //       <section>
+    //         <Switch>
+    //           { access ? <Route exact path="/" render={ (props) => <Dashboard {...props} setLogOut={this.setLogOut} authData={authData} /> } /> : <Route exact path="/" render={ (props) => <Search {...props} authData={authData} viewBtns={true} viewLow={true} />} /> }
+    //           <Route 
+    //             exact path="/auth" 
+    //             render={ (props) => <Authorization {...props} authData={authData} setLogIn={this.setLogIn} setLogOut={this.setLogOut} />} 
+    //           />
+    //           <Route 
+    //             exact path="/decks" 
+    //             render={ (props) => <Decks {...props} authData={authData} setLogOut={this.setLogOut} /> }
+    //           />
+    //           <Route 
+    //             exact path="/cards"
+    //             render={ (props) => <Cards {...props} authData={authData} setLogOut={this.setLogOut} /> } 
+    //           />
+    //           <Route 
+    //             exact path="/about"
+    //             render={ (props) => <About {...props} authData={authData} /> }
+    //           />
+    //           <Route 
+    //             component = { My404 } 
+    //           />
+    //         </Switch>
+    //       </section> 
+    //       <Footer />
+    //     </div>
+    //   </main>
+    // );
