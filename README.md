@@ -1,6 +1,6 @@
 # Try / Catch 
 
-An error assistance app for programmers 
+An error assistance app for programmers branching out into new languages, libraries, and frameworks 
 
 Backend:  
 Ruby 
@@ -42,17 +42,26 @@ email TEXT,
 bio TEXT,
 password_digest VARCHAR(60),
 is_admin BOOLEAN NOT NULL DEFAULT FALSE,
-collaborators INTEGER NOT NULL DEFAULT 0,
 has_one_attached :avatar_image 
 ```
 #### ERROR
 ```
 id SERIAL PRIMARY KEY,
 description TEXT,
-links TEXT,
-tags VARCHAR(255),
 user_id REFERENCES FOREIGN KEY user(id),
 has_many_attached :error_images  
+```
+#### LINKS 
+```
+id SERIAL PRIMARY KEY,
+error_id INTEGER REFERENCES FOREIGN KEY error(id),
+url TEXT 
+```
+#### TAGS 
+```
+id SERIAL PRIMARY KEY, 
+error_id INTEGER REFERENCES FORIEGN KEY error(id),
+content VARCHAR(255)
 ```
 #### MESSAGE 
 ```
@@ -67,7 +76,6 @@ has_many_attached :message_images
 id SERIAL PRIMARY KEY,
 url TEXT,
 size INTEGER,
-user_id INTEGER REFERENCES FOREIGN KEY user(id),
 error_id INTEGER REFERENCES FOREIGN KEY error(id)
 ```
 #### MESSAGE_IMAGE_URL
@@ -75,9 +83,9 @@ error_id INTEGER REFERENCES FOREIGN KEY error(id)
 id SERIAL PRIMARY KEY,
 url TEXT,
 size INTEGER,
-from_user_id INTEGER REFERENCES FOREIGN KEY user(id),
-to_user_id INTEGER REFERENCES FOREIGN KEY user(id)
+message_id INTEGER REFERENCES FOREIGN KEY message(id),
 ```
+
 ### Through Tables
 
 #### COLLABORATORS
@@ -89,19 +97,25 @@ collaborator_id INTEGER REFERENCES FOREIGN KEY user(id)
 
 ### Relations 
 User has many errors  
-Error belongs to User 
+Error belongs to User  
 
-User has many collaborators  
-Collaborator belongs to user 
+User has many users through collaborators  
+User belongs to user through collaborators  
 
 User has many messages  
-Message belongs to User 
+Message belongs to User  
+
+Error has many links  
+Link belongs to Error  
+
+Error has many tags  
+Tag belongs to Error  
 
 Message has many images  
-Image belongs to message 
+Image belongs to message  
 
 Error has many images  
-Image belongs to error 
+Image belongs to error  
 
 
 ## Wireframes 
