@@ -57,7 +57,7 @@ class Home extends Component {
 			const password = formData.password; 
 			const regTime = Date.now();
 
-			const url = `${process.env.REACT_APP_API_URL}/api/v1/login`
+			const url = `${process.env.REACT_APP_API_URL}/api/v1/user/login`
 
 			const response = await fetch(url, {
 				method: 'POST',
