@@ -139,7 +139,7 @@ class Home extends Component {
 			console.log("RESPONSE: ", responseJson)
 
 			if (!responseJson.done || !responseJson.login) {
-				this.setMessage("Wrong username/password")
+				this.setMessage("Account already exists")
 			} else {
 				// this.props.appLogin(userData)			
 
