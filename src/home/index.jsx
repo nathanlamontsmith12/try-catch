@@ -33,12 +33,19 @@ class Home extends Component {
 	constructor(){
 		super();
 		this.state = {
-			view: "reg"
+			view: "reg",
+			message: ""
 		}
 	}
 	changeView = (view) => {
 		this.setState({
-			view: view 
+			view: view, 
+			message: ""
+		})
+	}
+	setMessage = (message) => {
+		this.setState({
+			message: message 
 		})
 	}
 	login = (formData) => {
@@ -51,7 +58,7 @@ class Home extends Component {
 		return (
 			<StyledDiv>
 				<section className="fullHeight">
-					<Nav view={this.state.view} changeView={this.changeView} />
+					<Nav view={this.state.view} changeView={this.changeView} clearMessage={this.clearMessage} />
 					<div className="center">
 						{ this.state.view === "about" ? 
 							
@@ -60,7 +67,9 @@ class Home extends Component {
 							:
 							
 							<Auth 
-								view={this.state.view} 
+								view={this.state.view}
+								message={this.state.message} 
+								setMessage={this.setMessage}
 								login={this.login} 
 								register={this.register} 
 							/>  
