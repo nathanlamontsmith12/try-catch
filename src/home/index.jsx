@@ -48,11 +48,81 @@ class Home extends Component {
 			message: message 
 		})
 	}
-	login = (formData) => {
+	login = async (formData) => {
 		console.log("LOGIN: ", formData);
+
+		try {
+
+			const username = formData.username;
+			const password = formData.password; 
+			const regTime = Date.now();
+
+			const url = `${process.env.REACT_APP_API_URL}/api/v1/login`
+
+			const response = await fetch(url, {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify({
+					username: username,
+					password: password,
+					regTime: regTime
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			// need to add in error handling 
+
+			// this.props.appLogin(userData)
+
+		} catch(err) {
+			// need to add in error handling 
+
+			return err
+		}
 	}
-	register = (formData) => {
+	register = async (formData) => {
 		console.log("REGISTER: ", formData);
+
+		try {
+
+			const username = formData.username;
+			const password = formData.password; 
+			const email = formData.email;
+			const regTime = Date.now();
+
+			const url = `${process.env.REACT_APP_API_URL}/api/v1/user`
+
+			const response = await fetch(url, {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify({
+					username: username,
+					password: password,
+					email: email,
+					regTime: regTime
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			// need to add in error handling 
+
+			// this.props.appLogin(userData)
+
+		} catch(err) {
+			// need to add in error handling 
+			return err
+		}
+
 	}
 	render(){
 		return (

@@ -30,13 +30,30 @@ class App extends Component {
         this.state = {
             loggedIn: false,
             username: "",
-            userId: ""
+            userId: "",
+            regTime: "",
         }
+    }
+    appLogin = (userData) => {
+        this.setState({
+            loggedIn: true,
+            username: userData.username,
+            userId: userData.userId,
+            regTime: userData.regTime
+        })
+    }
+    appLogout = () => {
+        this.setState({
+            loggedIn: false,
+            username: "",
+            userId: "",
+            regTime: ""
+        })
     }
     render() {
     return (
         <div className="App">
-            <Header /> 
+            <Header loggedIn={this.state.loggedIn} appLogout={this.appLogout} /> 
             <main>
 
                 { this.state.loggedIn ? <Nav /> : null }
@@ -46,7 +63,7 @@ class App extends Component {
                     { !this.state.loggedIn ? 
                         <Route 
                             exact path="/" 
-                            render={ (props) => <Home {...props} /> }
+                            render={ (props) => <Home {...props} appLogin={this.appLogin} /> }
                         /> 
                     : null }
 
