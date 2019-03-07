@@ -94,6 +94,12 @@ id SERIAL PRIMARY KEY,
 user_id INTEGER REFERENCES FOREIGN KEY user(id),
 collaborator_id INTEGER REFERENCES FOREIGN KEY user(id)
 ```
+#### ERROR_TAGS 
+```
+id SERIAL PRIMARY KEY,
+error_id INTEGER REFERENCES FOREIGN KEY error(id),
+tag_id INTEGER REFERENCES FOREIGN KEY tag(id)
+```
 
 ### Relations 
 User has many errors  
@@ -108,8 +114,8 @@ Message belongs to User
 Error has many links  
 Link belongs to Error  
 
-Error has many tags  
-Tag belongs to Error  
+Error has many tags through error_tags  
+Tag belongs to many Errors through error_tags  
 
 Message has many images  
 Image belongs to message  
