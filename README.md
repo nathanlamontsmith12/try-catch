@@ -41,6 +41,7 @@ username VARCHAR(128),
 email TEXT,
 bio TEXT,
 password_digest VARCHAR(60),
+reg_time BIGINT,
 is_admin BOOLEAN NOT NULL DEFAULT FALSE,
 has_one_attached :avatar_image 
 ```

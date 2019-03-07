@@ -6,6 +6,8 @@ import Nav from './nav';
 import Auth from './auth';
 import About from './about';
 
+
+// Styles: 
 const StyledDiv = styled.div `
 	display: flex;
 	justify-content: center;
@@ -75,13 +77,35 @@ class Home extends Component {
 			const responseJson = await response.json();
 			console.log("RESPONSE: ", responseJson)
 
-			// need to add in error handling 
+			//{
+			// 	code: 201 
+			// 	done: true
+			// 	is_admin: false
+			// 	login: true
+			// 	message: "User nate logged in"
+			// 	reg_time: 1551989708493
+			// 	success: true
+			// 	userId: 1
+			// 	username: "nate"
+			//}
 
-			// this.props.appLogin(userData)
+			if (!responseJson.done || !responseJson.login) {
+				this.setMessage("wrong username/password")
+			} else {
+				// this.props.appLogin(userData)			
+
+				const userData = {
+					username: responseJson.username,
+					userId: responseJson.userId, 
+					regTime: responseJson.reg_time
+				}
+
+				this.props.appLogin(userData)
+			}
 
 		} catch(err) {
-			// need to add in error handling 
-
+			console.log("ERROR: ", err);
+			this.setMessage("Failed to create account") 
 			return err
 		}
 	}
@@ -114,12 +138,23 @@ class Home extends Component {
 			const responseJson = await response.json();
 			console.log("RESPONSE: ", responseJson)
 
-			// need to add in error handling 
+			if (!responseJson.done || !responseJson.login) {
+				this.setMessage("Wrong username/password")
+			} else {
+				// this.props.appLogin(userData)			
 
-			// this.props.appLogin(userData)
+				const userData = {
+					username: responseJson.username,
+					userId: responseJson.userId, 
+					regTime: responseJson.reg_time
+				}
+
+				this.props.appLogin(userData)
+			}
 
 		} catch(err) {
-			// need to add in error handling 
+			console.log("ERROR: ", err);
+			this.setMessage("Failed to create account") 
 			return err
 		}
 

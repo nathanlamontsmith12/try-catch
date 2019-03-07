@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Switch, Link } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 // Components — presentational: 
 import Footer from './presentational/footer';
 import Header from './presentational/header';
-import Nav from './presentational/nav';
+import My404 from './presentational/my404';
 
 // Components - containers: 
 import Home from './home';
@@ -14,16 +14,6 @@ import Collab from './collab';
 import Profile from './profile';
 
 
-const My404 = () => {
-  return(
-    <div>
-        <h2>Not all who wander are lost...</h2>
-        <h3> But you are. </h3> 
-        <p> If you are trying to access your dashboard, click <span className="fakeLink"><Link to="/">here</Link></span> </p>
-    </div>
-  )
-}
-
 class App extends Component {
     constructor(){
         super();
@@ -31,7 +21,7 @@ class App extends Component {
             loggedIn: false,
             username: "",
             userId: "",
-            regTime: "",
+            regTime: ""
         }
     }
     appLogin = (userData) => {
@@ -42,7 +32,7 @@ class App extends Component {
             regTime: userData.regTime
         })
     }
-    appLogout = () => {
+    appLogout = (history) => {
         this.setState({
             loggedIn: false,
             username: "",
@@ -53,11 +43,8 @@ class App extends Component {
     render() {
     return (
         <div className="App">
-            <Header loggedIn={this.state.loggedIn} appLogout={this.appLogout} /> 
-            <main>
-
-                { this.state.loggedIn ? <Nav /> : null }
-            
+            <Header loggedIn={this.state.loggedIn} appLogout={this.appLogout} />  
+            <main>  
                 <Switch>
 
                     { !this.state.loggedIn ? 
@@ -76,7 +63,7 @@ class App extends Component {
 
                      { this.state.loggedIn ? 
                         <Route 
-                            exact path="/error" 
+                            exact path="/errors" 
                             render={ (props) => <Errors {...props} /> } 
                         /> 
                      : null }
@@ -96,12 +83,12 @@ class App extends Component {
                     : null }
 
                     <Route 
-                        component = { My404 } 
+                        render={ (props) => <My404 {...props} />}
                     />
                 </Switch>
 
             </main>
-            <Footer />
+            { !this.state.loggedIn ? <Footer /> : null }
         </div>
     )}
 }

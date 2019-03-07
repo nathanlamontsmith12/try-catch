@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
+const StyledDiv = styled.div `
+	width: 70%;
+`
+
 const StyledNav = styled.nav `
 	display: flex;
 	justify-content: space-around;
@@ -15,11 +19,14 @@ const StyledNav = styled.nav `
 
 function Nav (props) {
 	return (
-		<StyledNav>
-			<span className="fakeLink"><Link to="/errors"> errors </Link></span>
-			<span className="fakeLink"><Link to="/collab"> collab </Link></span>
-			<span className="fakeLink"><Link to="/profile"> profile </Link></span>
-		</StyledNav>
+		<StyledDiv>
+			<StyledNav>
+				<Link style={{textDecoration: "none"}} to="/errors"> <span className="fakeLink">errors </span></Link>
+				<Link style={{textDecoration: "none"}} to="/collab"> <span className="fakeLink"> collab </span></Link>
+				<Link style={{textDecoration: "none"}} to="/profile"> <span className="fakeLink">profile </span> </Link>
+				<Link style={{textDecoration: "none"}} to="/"> <span className="fakeLink" onClick={props.appLogout}> logout </span> </Link>
+			</StyledNav>
+		</StyledDiv>
 	)
 }
 
