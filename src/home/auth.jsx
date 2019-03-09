@@ -25,8 +25,13 @@ class Auth extends Component {
 		}
 	}
 	handleChange = (evt) => {
+
+		if (this.props.message) {
+			this.props.setMessage("")
+		}
+
 		this.setState({
-			[evt.currentTarget.name]: evt.currentTarget.value
+			[evt.currentTarget.name]: evt.currentTarget.value,
 		})
 	}
 	quickCheck = (type) => {

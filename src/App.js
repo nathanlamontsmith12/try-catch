@@ -23,31 +23,40 @@ class App extends Component {
             username: "",
             userId: "",
             regTime: "",
-            appModal: null, 
-            userLoaded: false,
+            appModal: null,
             issues: [],
             userData: null
         }
     }
-    appLogin = (userData) => {
+    appLogin = async (userData) => {
+
+        const userId = userData.userId;
+
+        const data = await this.getUser(userId);
+
         this.setState({
             loggedIn: true,
-            username: userData.username,
-            userId: userData.userId,
-            regTime: userData.regTime
+            username: data.user.username,
+            userId: data.user.id,
+            regTime: data.user.reg_time,
+            userData: data.user,
+            issues: data.issues
         })
     }
     appLogout = (history) => {
         this.setState({
-            loggedIn: false,
+            loggedIn: false, 
             username: "",
             userId: "",
-            regTime: ""
+            regTime: "",
+            appModal: null,
+            issues: [],
+            userData: null
         })
     }
-    modalOn = (mode) => {
+    modalOn = (data) => {
         this.setState({
-            appModal: mode
+            appModal: data
         })
     }
     modalOff = () => {
@@ -55,9 +64,9 @@ class App extends Component {
             appModal: null 
         })
     }
-    getUser = async () => {
+    getUser = async (userId) => {
         try {
-            const url = (process.env.REACT_APP_API_URL + "/api/v1/user/" + this.state.userId)
+            const url = (process.env.REACT_APP_API_URL + "/api/v1/user/" + userId)
 
             const response = await fetch(url, {
                 method: 'GET',
@@ -78,27 +87,26 @@ class App extends Component {
                 throw new Error("Failed to load user!")
             } 
 
-            this.setState({
-                userLoaded: true,
-                userData: responseJson.user,
-                issues: responseJson.issues
-            })
+            return responseJson
 
         } catch(err) {
             console.log(err.name + " " + err.message)
             return err
         }
     }
-    componentDidMount() {
-        if (this.state.loggedIn && this.state.userId && !this.state.userLoaded) {
-            this.getUser();
-        }
-    }
+    // async componentDidMount() {
+    //     if (this.state.loggedIn && this.state.userId && !this.state.userLoaded) {
+    //         const data = this.getUser(this.state.userId);
+    //         this.setState({
+
+    //         })
+    //     }
+    // }
     render() {    
-        console.log("APP STATE: ", this.state)
+ //       console.log("APP STATE: ", this.state)
     return (
         <div className="App">
-            { this.state.loggedIn && this.state.appModal ? <AppModal modalOff={this.modalOff} mode={this.state.appModal} /> : null }
+            { this.state.loggedIn && this.state.appModal ? <AppModal modalOff={this.modalOff} data={this.state} /> : null }
             <Header loggedIn={this.state.loggedIn} appLogout={this.appLogout} />  
             <main>  
                 <Switch>

@@ -23,20 +23,62 @@ const StyledDiv = styled.div `
 		opacity: 0.9;
 		background: white;
 	}
+
+	section span, section span, section ul {
+		margin-left: 40px;
+	}
 `
 
 class Issues extends Component {
-	constructor(){
+	constructor(props){
 		super();
 		this.state = {
-
+			issues: props.issues
 		}
 	}
 	render(){
+
+		let issues = null;
+
+		if (this.state.issues && this.state.issues.length > 0) {
+			issues = this.state.issues.map((issue, i) => {
+				return (
+					<li key={`issue-${issue.id}`}>
+						<hr />
+						<strong>
+							<span 
+								className="fakeLink" 
+								onClick={this.props.modalOn.bind(
+									null, 
+									({form: "issue", action: "view", display: issue})
+									)}>
+								{issue.name}
+							</span>
+						</strong>
+						<br />
+						<p>{ issue.description }</p>
+						<hr />
+					</li>
+				)
+			})
+		}
+
 		return (
 			<StyledDiv>
 				<section>
 					<h1> Issues </h1>
+					<br />
+					<span 
+						className="fakeLink" 
+						onClick={this.props.modalOn.bind(
+							null, 
+							({form: "issue", action: "new", display: null})
+							)}> 
+						New Issue 
+					</span>
+					<ul> 
+						{issues} 
+					</ul>
 				</section>
 			</StyledDiv>
 		)

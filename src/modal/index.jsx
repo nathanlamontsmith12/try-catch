@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+// Components: 
+import IssueDisplay from '../issues/display';
+import CollabDisplay from '../collab/display';
+import ProfileDisplay from '../profile/display';
+
+// Styles: 
 const StyledDiv = styled.div `
 	position: absolute;
 	height: 100%;
@@ -30,19 +36,53 @@ class AppModal extends Component {
 	constructor(props){
 		super();
 		this.state = {
-			mode: props.mode 
+			modeData: props.data.appModal,
+			userData: props.data.userData,
+			issues: props.data.issues
 		}
+	}
+	alterModal = (newData) => {
+		this.setState({
+			data: newData
+		})
+	}
+	newItem = (data) => {
+		console.log("NEW ITEM: ", data)
+	}
+	editItem = (data) => {
+		console.log("EDIT ITEM: ", data)
 	}
 	render(){
 
-		console.log("MODAL STATE: ", this.state)
+//		console.log("MODAL STATE: ", this.state)
 
 		return (
 			<StyledDiv>
 				<div>
 					<span className="fakeLink" onClick={this.props.modalOff} >close</span>
-					<h1> LIST / EDIT COMPONENT HERE </h1>
-					<span className="fakeLink" onClick={this.props.modalOff} >close</span>
+					{ this.state.modeData.form === "issue" ? 
+						<IssueDisplay 
+							modeData={this.state.modeData} 
+							userData={this.state.userData} 
+							newItem={this.newItem}
+							editItem={this.editItem}
+						/> 
+					: null }
+					{ this.state.modeData.form === "collab" ? 
+						<CollabDisplay 
+							modeData={this.state.modeData} 
+							userData={this.state.userData}
+							newItem={this.newItem}
+							editItem={this.editItem} 
+						/> 
+					: null }
+					{ this.state.modeData.form === "profile" ? 
+						<ProfileDisplay 
+							modeData={this.state.modeData} 
+							userData={this.state.userData}
+							editItem={this.editItem}
+						/> 
+					: null }
 				</div>
 			</StyledDiv>
 		)
