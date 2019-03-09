@@ -51,8 +51,6 @@ class Home extends Component {
 		})
 	}
 	login = async (formData) => {
-		console.log("LOGIN: ", formData);
-
 		try {
 
 			const username = formData.username;
@@ -110,8 +108,6 @@ class Home extends Component {
 		}
 	}
 	register = async (formData) => {
-		console.log("REGISTER: ", formData);
-
 		try {
 
 			const username = formData.username;
