@@ -46,11 +46,13 @@ class AppModal extends Component {
 			data: newData
 		})
 	}
-	newItem = (data) => {
+	newItem = (data, kind) => {
 		console.log("NEW ITEM: ", data)
+		this.props.modalOff();
 	}
-	editItem = (data) => {
+	editItem = (data, kind) => {
 		console.log("EDIT ITEM: ", data)
+		this.props.modalOff();
 	}
 	render(){
 
