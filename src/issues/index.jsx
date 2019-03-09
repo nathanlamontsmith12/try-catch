@@ -25,7 +25,7 @@ const StyledDiv = styled.div `
 	}
 `
 
-class Errors extends Component {
+class Issues extends Component {
 	constructor(){
 		super();
 		this.state = {
@@ -36,7 +36,7 @@ class Errors extends Component {
 		return (
 			<StyledDiv>
 				<section>
-					<h1> Errors </h1>
+					<h1> Issues </h1>
 				</section>
 			</StyledDiv>
 		)
@@ -46,4 +46,4 @@ class Errors extends Component {
 
 
 
-export default Errors;
+export default Issues;

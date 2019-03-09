@@ -21,7 +21,7 @@ function Nav (props) {
 	return (
 		<StyledDiv>
 			<StyledNav>
-				<Link style={{textDecoration: "none"}} to="/errors"> <span className="fakeLink">errors </span></Link>
+				<Link style={{textDecoration: "none"}} to="/issues"> <span className="fakeLink">issues </span></Link>
 				<Link style={{textDecoration: "none"}} to="/collab"> <span className="fakeLink"> collab </span></Link>
 				<Link style={{textDecoration: "none"}} to="/profile"> <span className="fakeLink">profile </span> </Link>
 				<Link style={{textDecoration: "none"}} to="/"> <span className="fakeLink" onClick={props.appLogout}> logout </span> </Link>

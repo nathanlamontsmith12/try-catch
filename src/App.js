@@ -9,7 +9,7 @@ import My404 from './presentational/my404';
 
 // Components - containers: 
 import Home from './home';
-import Errors from './errors';
+import Issues from './issues';
 import Collab from './collab'; 
 import Profile from './profile';
 
@@ -57,14 +57,14 @@ class App extends Component {
                     { this.state.loggedIn ? 
                         <Route 
                             exact path="/" 
-                            render={ (props) => <Errors {...props} /> } 
+                            render={ (props) => <Issues {...props} /> } 
                         /> 
                     : null }
 
                      { this.state.loggedIn ? 
                         <Route 
-                            exact path="/errors" 
-                            render={ (props) => <Errors {...props} /> } 
+                            exact path="/issues" 
+                            render={ (props) => <Issues {...props} /> } 
                         /> 
                      : null }
 
