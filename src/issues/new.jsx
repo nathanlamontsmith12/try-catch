@@ -29,7 +29,7 @@ class NewIssue extends Component {
 		this.props.newItem(this.state, "issue")
 	}
 	render(){
-		console.log("NEW ISSUE PROPS: ", this.props);
+//		console.log("NEW ISSUE PROPS: ", this.props);
 		return(
 			<div>
 				<h1> NEW ISSUE </h1>

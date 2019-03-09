@@ -46,12 +46,65 @@ class AppModal extends Component {
 			data: newData
 		})
 	}
-	newItem = (data, kind) => {
-		console.log("NEW ITEM: ", data)
-		this.props.modalOff();
+	makeBody = (data, kind) => {
+		let newBody = null;
+
+		switch (kind) {
+			case "issue":
+				newBody = ({
+					name: data.name,
+					description: data.description,
+					user_id: this.state.userData.userId
+				})
+			break
+			default:
+				newBody = null;
+			break
+		}
+
+		return newBody;
 	}
-	editItem = (data, kind) => {
-		console.log("EDIT ITEM: ", data)
+	newItem = async (data, kind) => {
+		console.log(`NEW ${kind}`, data)
+
+		try {
+			const url = process.env.REACT_APP_API_URL + "/api/v1/" + kind;
+
+			console.log("URL: ", url)
+	  		// issue.name = @payload[:name]
+	  		// issue.description = @payload[:description]
+	  		// issue.owner_id = @payload[:user_id]
+			
+	  		const body = this.makeBody(data, kind);
+
+			const response = await fetch(url, {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify({ body }),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			this.props.modalOff();
+
+		} catch(err) {
+			console.log(err);
+			return err
+		}
+	}
+	editItem = async (data, kind) => {
+		console.log(`EDIT ${kind}`, data)
+
+		try {
+
+		} catch(err) {
+			console.log(err);
+			return err
+		}
 		this.props.modalOff();
 	}
 	render(){
