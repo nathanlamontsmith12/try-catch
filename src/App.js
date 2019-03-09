@@ -30,9 +30,13 @@ class App extends Component {
     }
     appLogin = async (userData) => {
 
+
         const userId = userData.userId;
 
         const data = await this.getUser(userId);
+
+        // console.log("USER DATA: ", data)
+        
 
         this.setState({
             loggedIn: true,
@@ -42,6 +46,8 @@ class App extends Component {
             userData: data.user,
             issues: data.issues
         })
+
+        // console.log("APP STATE: ", this.state)
     }
     appLogout = (history) => {
         this.setState({

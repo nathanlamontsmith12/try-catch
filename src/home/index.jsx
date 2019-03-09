@@ -91,7 +91,7 @@ class Home extends Component {
 
 		} catch(err) {
 			console.log("ERROR: ", err);
-			this.setMessage("Failed to create account") 
+			this.setMessage("Failed to log in to account") 
 			return err
 		}
 	}

@@ -54,7 +54,7 @@ class AppModal extends Component {
 				newBody = ({
 					name: data.name,
 					description: data.description,
-					user_id: this.state.userData.userId
+					user_id: this.state.userData.id
 				})
 			break
 			default:
@@ -77,10 +77,12 @@ class AppModal extends Component {
 			
 	  		const body = this.makeBody(data, kind);
 
+	  		console.log("NEW BODY: ", body)
+
 			const response = await fetch(url, {
 				method: 'POST',
 				credentials: 'include',
-				body: JSON.stringify({ body }),
+				body: JSON.stringify( body ),
 				headers: {
 					'Content-Type': 'application/json'
 				}
