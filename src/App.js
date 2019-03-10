@@ -49,6 +49,23 @@ class App extends Component {
 
         // console.log("APP STATE: ", this.state)
     }
+    update = async () => {
+        try {
+            const newData = await this.getUser(this.state.userId)
+
+            this.setState({
+                username: newData.user.username,
+                userId: newData.user.id,
+                regTime: newData.user.reg_time,
+                userData: newData.user,
+                issues: newData.issues                
+            })           
+
+        } catch(err) {
+            console.log("ERROR: ", err);
+            return err 
+        }
+    }
     appLogout = (history) => {
         this.setState({
             loggedIn: false, 
@@ -112,7 +129,7 @@ class App extends Component {
  //       console.log("APP STATE: ", this.state)
     return (
         <div className="App">
-            { this.state.loggedIn && this.state.appModal ? <AppModal modalOff={this.modalOff} data={this.state} /> : null }
+            { this.state.loggedIn && this.state.appModal ? <AppModal modalOff={this.modalOff} data={this.state} update={this.update} /> : null }
             <Header loggedIn={this.state.loggedIn} appLogout={this.appLogout} />  
             <main>  
                 <Switch>

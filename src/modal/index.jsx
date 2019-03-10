@@ -43,8 +43,10 @@ class AppModal extends Component {
 	}
 	alterModal = (newData) => {
 		this.setState({
-			data: newData
+			modeData: newData
 		})
+
+		this.forceUpdate();
 	}
 	makeBody = (data, kind) => {
 		let newBody = null;
@@ -91,6 +93,9 @@ class AppModal extends Component {
 			const responseJson = await response.json();
 			console.log("RESPONSE: ", responseJson)
 
+			// load new user data into state: 
+			await this.props.update();
+
 			this.props.modalOff();
 
 		} catch(err) {
@@ -107,11 +112,20 @@ class AppModal extends Component {
 			console.log(err);
 			return err
 		}
-		this.props.modalOff();
+	}
+	deleteItem = async (data, kind) => {
+		console.log(`DELETE ${kind}`, data)
+
+		try {
+
+		} catch(err) {
+			console.log(err);
+			return err
+		}
 	}
 	render(){
 
-//		console.log("MODAL STATE: ", this.state)
+		console.log("MODAL STATE: ", this.state)
 
 		return (
 			<StyledDiv>
@@ -123,6 +137,7 @@ class AppModal extends Component {
 							userData={this.state.userData} 
 							newItem={this.newItem}
 							editItem={this.editItem}
+							alterModal={this.alterModal}
 						/> 
 					: null }
 					{ this.state.modeData.form === "collab" ? 
@@ -130,7 +145,8 @@ class AppModal extends Component {
 							modeData={this.state.modeData} 
 							userData={this.state.userData}
 							newItem={this.newItem}
-							editItem={this.editItem} 
+							editItem={this.editItem}
+							alterModal={this.alterModal} 
 						/> 
 					: null }
 					{ this.state.modeData.form === "profile" ? 
@@ -138,6 +154,7 @@ class AppModal extends Component {
 							modeData={this.state.modeData} 
 							userData={this.state.userData}
 							editItem={this.editItem}
+							alterModal={this.alterModal}
 						/> 
 					: null }
 				</div>

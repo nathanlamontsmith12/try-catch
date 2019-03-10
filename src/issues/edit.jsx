@@ -29,7 +29,7 @@ class EditIssue extends Component {
 		this.props.editItem(this.state, "issue")
 	}
 	render(){
-//		console.log("EDIT ISSUE PROPS: ", this.props);
+		console.log("EDIT ISSUE PROPS: ", this.props);
 		return(
 			<div>
 				<h1> EDIT ISSUE </h1>

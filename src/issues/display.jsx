@@ -8,7 +8,6 @@ import EditIssue from './edit';
 
 
 function IssueDisplay (props) {
-	console.log("ISSUE DISPLAY PROPS: ", props);
 	return (
 		<div>
 			{ props.modeData.action === "new" ? 
@@ -22,6 +21,7 @@ function IssueDisplay (props) {
 				<ViewIssue 
 					modeData={props.modeData}
 					userData={props.userData}
+					alterModal={props.alterModal}
 				/> 
 			: null }
 			{ props.modeData.action === "edit" ? 
