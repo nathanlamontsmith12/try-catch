@@ -117,14 +117,6 @@ class App extends Component {
             return err
         }
     }
-    // async componentDidMount() {
-    //     if (this.state.loggedIn && this.state.userId && !this.state.userLoaded) {
-    //         const data = this.getUser(this.state.userId);
-    //         this.setState({
-
-    //         })
-    //     }
-    // }
     render() {    
  //       console.log("APP STATE: ", this.state)
     return (

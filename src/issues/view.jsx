@@ -18,12 +18,11 @@ function ViewIssue (props) {
 					})
 				)}
 			> 
-				Edit 
+				Edit / Remove
 			</span>
 			
 			<h3> { props.modeData.display.name } </h3>
 			<p> { props.modeData.display.description } </p>
-			<button> Delete </button>
 		</div>
 	)
 }

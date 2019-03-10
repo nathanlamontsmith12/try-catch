@@ -29,6 +29,7 @@ function IssueDisplay (props) {
 					modeData={props.modeData}
 					userData={props.userData}
 					editItem={props.editItem}
+					deleteItem={props.deleteItem}
 				/> 
 			: null }
 		</div>

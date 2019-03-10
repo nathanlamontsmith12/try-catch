@@ -144,6 +144,24 @@ class AppModal extends Component {
 
 		try {
 
+			const url = process.env.REACT_APP_API_URL + "/api/v1/" + kind + "/" + data.id;
+
+			const response = await fetch(url, {
+				method: 'DELETE',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			// load new user data into state: 
+			await this.props.update();
+
+			this.props.modalOff();
+
 		} catch(err) {
 			console.log(err);
 			return err
@@ -163,6 +181,7 @@ class AppModal extends Component {
 							userData={this.state.userData} 
 							newItem={this.newItem}
 							editItem={this.editItem}
+							deleteItem={this.deleteItem}
 							alterModal={this.alterModal}
 						/> 
 					: null }
@@ -172,6 +191,7 @@ class AppModal extends Component {
 							userData={this.state.userData}
 							newItem={this.newItem}
 							editItem={this.editItem}
+							deleteItem={this.deleteItem}							
 							alterModal={this.alterModal} 
 						/> 
 					: null }
@@ -180,6 +200,7 @@ class AppModal extends Component {
 							modeData={this.state.modeData} 
 							userData={this.state.userData}
 							editItem={this.editItem}
+							deleteItem={this.deleteItem}
 							alterModal={this.alterModal}
 						/> 
 					: null }
