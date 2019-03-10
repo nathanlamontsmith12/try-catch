@@ -16,6 +16,8 @@ const StyledDiv = styled.div `
 	align-items: center;
 	justify-items: center;
 	background: rgba(112, 128, 144, 0.7);
+	min-width: 500px;
+	min-height: 500px;
 
 	div {
 		margin: auto;
@@ -57,6 +59,16 @@ class AppModal extends Component {
 					name: data.name,
 					description: data.description,
 					user_id: this.state.userData.id
+				})
+			break
+			case "profile":
+				newBody = ({
+					bio: data.bio,
+					password: data.currentPassword,
+					email: data.email,
+					user_id: data.userId,
+					username: data.username,
+					newPassword: data.newPassword || null
 				})
 			break
 			default:
@@ -110,12 +122,10 @@ class AppModal extends Component {
 		try {
 
 	  		const body = this.makeBody(data, kind);
-//	  		console.log("NEW BODY: ", body)
+	  		console.log("NEW BODY: ", body)
 
 			const url = process.env.REACT_APP_API_URL + "/api/v1/" + kind + "/" + body.id;
-//			console.log("URL: ", url)			
-
-			// body._method = "PATCH"
+			console.log("URL: ", url)			
 
 			const response = await fetch(url, {
 				method: 'PATCH',

@@ -96,7 +96,7 @@ class EditIssue extends Component {
 								onChange={this.handleChange}
 							/>
 							<br />
-							<button onClick={this.submit}> Update </button>
+							<button onClick={this.submit}> Save Changes </button>
 						</form>
 						<br />
 						<br />

@@ -24,7 +24,7 @@ const StyledDiv = styled.div `
 		background: white;
 	}
 
-	section span, section span, section ul {
+	section span, section ul {
 		margin-left: 40px;
 	}
 `
@@ -95,6 +95,8 @@ class Issues extends Component {
 							)}> 
 						New Issue 
 					</span>
+					<br />
+					<br />
 					<ul> 
 						{issues} 
 					</ul>
