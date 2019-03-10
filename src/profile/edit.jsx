@@ -129,9 +129,7 @@ class ProfileEdit extends Component {
 			<StyledDiv>
 				<h1> EDIT PROFILE </h1>
 				<h3> {this.state.username} </h3>
-				<br />
 				<p> {this.state.message} &nbsp; </p>
-				<br />
 				<form>
 					<h4> Enter your password to make any changes </h4>
 					<input 
@@ -171,10 +169,8 @@ class ProfileEdit extends Component {
 						placeholder="Enter your bio..." 
 						onChange={this.handleChange} 
 					/>
-					<br />
 					<button disabled={disable} onClick={this.submit}> Save Changes </button>
 				</form>
-				<br />
 				<span 
 					className="fakeLink" 
 					onClick={this.reset}> 
