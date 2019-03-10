@@ -36,6 +36,14 @@ class Issues extends Component {
 			issues: props.issues
 		}
 	}
+	shouldComponentUpdate(nextProps, nextState){
+		if (this.state.issues !== nextProps.issues) {
+			this.setState({
+				issues: nextProps.issues
+			})
+		}
+		return true
+	}
 	render(){
 		// console.log("ISSUES STATE: ", this.state)
 

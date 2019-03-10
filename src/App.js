@@ -58,7 +58,7 @@ class App extends Component {
                 userId: newData.user.id,
                 regTime: newData.user.reg_time,
                 userData: newData.user,
-                issues: newData.issues                
+                issues: newData.issues              
             })           
 
         } catch(err) {
@@ -170,7 +170,7 @@ class App extends Component {
                             render={ (props) => <Collab {...props}
                             modalOn={this.modalOn} 
                             userData={this.state.userData} 
-                            getUser={this.getUser}/> } 
+                            getUser={this.getUser} /> } 
                         /> 
                     : null } 
 

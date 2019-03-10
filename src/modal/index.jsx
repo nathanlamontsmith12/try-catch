@@ -76,14 +76,10 @@ class AppModal extends Component {
 		try {
 
 	  		const body = this.makeBody(data, kind);
-	  		console.log("NEW BODY: ", body)
+//	  		console.log("NEW BODY: ", body)
 
 			const url = process.env.REACT_APP_API_URL + "/api/v1/" + kind;
-			console.log("URL: ", url)
-
-	  		// issue.name = @payload[:name]
-	  		// issue.description = @payload[:description]
-	  		// issue.owner_id = @payload[:user_id]
+//			console.log("URL: ", url)
 			
 
 			const response = await fetch(url, {
@@ -114,10 +110,10 @@ class AppModal extends Component {
 		try {
 
 	  		const body = this.makeBody(data, kind);
-	  		console.log("NEW BODY: ", body)
+//	  		console.log("NEW BODY: ", body)
 
 			const url = process.env.REACT_APP_API_URL + "/api/v1/" + kind + "/" + body.id;
-			console.log("URL: ", url)			
+//			console.log("URL: ", url)			
 
 			// body._method = "PATCH"
 
