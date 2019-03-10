@@ -21,12 +21,18 @@ class NewIssue extends Component {
 	}
 	submit = (evt) => {
 		evt.preventDefault();
+
+		const body = {
+			name: this.state.name,
+			description: this.state.description
+		}
+
 		this.setState({
 			name: "",
 			description: ""
 		})
 
-		this.props.newItem(this.state, "issue")
+		this.props.newItem(body, "issue")
 	}
 	render(){
 //		console.log("NEW ISSUE PROPS: ", this.props);

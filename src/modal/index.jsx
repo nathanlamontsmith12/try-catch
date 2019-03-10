@@ -64,22 +64,27 @@ class AppModal extends Component {
 			break
 		}
 
+		if (data.id) {
+			newBody.id = data.id
+		}
+
 		return newBody;
 	}
 	newItem = async (data, kind) => {
 		console.log(`NEW ${kind}`, data)
 
 		try {
-			const url = process.env.REACT_APP_API_URL + "/api/v1/" + kind;
 
+	  		const body = this.makeBody(data, kind);
+	  		console.log("NEW BODY: ", body)
+
+			const url = process.env.REACT_APP_API_URL + "/api/v1/" + kind;
 			console.log("URL: ", url)
+
 	  		// issue.name = @payload[:name]
 	  		// issue.description = @payload[:description]
 	  		// issue.owner_id = @payload[:user_id]
 			
-	  		const body = this.makeBody(data, kind);
-
-	  		console.log("NEW BODY: ", body)
 
 			const response = await fetch(url, {
 				method: 'POST',
@@ -108,6 +113,31 @@ class AppModal extends Component {
 
 		try {
 
+	  		const body = this.makeBody(data, kind);
+	  		console.log("NEW BODY: ", body)
+
+			const url = process.env.REACT_APP_API_URL + "/api/v1/" + kind + "/" + body.id;
+			console.log("URL: ", url)			
+
+			// body._method = "PATCH"
+
+			const response = await fetch(url, {
+				method: 'PATCH',
+				credentials: 'include',
+				body: JSON.stringify( body ),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			// load new user data into state: 
+			await this.props.update();
+
+			this.props.modalOff();
+
 		} catch(err) {
 			console.log(err);
 			return err
@@ -125,7 +155,7 @@ class AppModal extends Component {
 	}
 	render(){
 
-		console.log("MODAL STATE: ", this.state)
+		// console.log("MODAL STATE: ", this.state)
 
 		return (
 			<StyledDiv>

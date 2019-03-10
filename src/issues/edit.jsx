@@ -5,6 +5,7 @@ class EditIssue extends Component {
 		super();
 		this.state = {
 			name: props.modeData.display.name,
+			id: props.modeData.display.id,
 			description: props.modeData.display.description
 		}
 	}
@@ -21,15 +22,21 @@ class EditIssue extends Component {
 	}
 	submit = (evt) => {
 		evt.preventDefault();
+
+		const body = {
+			name: this.state.name,
+			id: this.state.id,
+			description: this.state.description
+		}
+
 		this.setState({
 			name: "",
 			description: ""
 		})
 
-		this.props.editItem(this.state, "issue")
+		this.props.editItem(body, "issue")
 	}
 	render(){
-		console.log("EDIT ISSUE PROPS: ", this.props);
 		return(
 			<div>
 				<h1> EDIT ISSUE </h1>
@@ -51,7 +58,6 @@ class EditIssue extends Component {
 						value={this.state.description}
 						onChange={this.handleChange}
 					/>
-					<input type="hidden" name="_method" value="PATCH" />
 					<br />
 					<button onClick={this.submit}> Update </button>
 				</form>

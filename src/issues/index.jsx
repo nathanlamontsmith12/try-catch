@@ -37,11 +37,22 @@ class Issues extends Component {
 		}
 	}
 	render(){
+		// console.log("ISSUES STATE: ", this.state)
 
 		let issues = null;
 
 		if (this.state.issues && this.state.issues.length > 0) {
-			issues = this.state.issues.map((issue, i) => {
+
+			issues = this.state.issues;
+
+			// sort oldest issues first: 
+			if (this.state.issues.length > 1) {
+				issues.sort((a, b) => {
+					return a.id - b.id
+				})				
+			}
+
+			issues = issues.map((issue, i) => {
 				return (
 					<li key={`issue-${issue.id}`}>
 						<hr />
