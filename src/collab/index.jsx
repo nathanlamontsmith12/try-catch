@@ -33,6 +33,7 @@ class Collab extends Component {
 		}
 	}
 	render(){
+		console.log("COLLAB PROPS: ", this.props)
 		return (
 			<StyledDiv>
 				<section>
@@ -43,7 +44,33 @@ class Collab extends Component {
 	}
 }
 
+/*
+getUser: ƒ (_x2)
+history: {length: 50, action: "PUSH", location: {…}, createHref: ƒ, push: ƒ, …}
+location: {pathname: "/collab", search: "", hash: "", state: undefined, key: "gbj5as"}
+match: {path: "/collab", url: "/collab", isExact: true, params: {…}}
+modalOn: ƒ (data)
+staticContext: undefined
+userData:
+bio: "Normal guy, here"
+email: "asdf@asdf.com"
+id: 4
+is_admin: false
+password_digest: "$2a$10$y5vmxBXasEj0UuGpc9SoeumksK.3EO0zNim3gp.lygiQStfbCbzpe"
+reg_time: 1552168474662
+username: "guy"
 
+
+    modalOn = (data) => {
+        this.setState({
+            appModal: data
+        })
+    }
+
+			modeData: props.data.appModal,
+			userData: props.data.userData,
+			issues: props.data.issues
+*/
 
 
 export default Collab;
