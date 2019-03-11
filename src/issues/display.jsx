@@ -14,6 +14,7 @@ function IssueDisplay (props) {
 				<NewIssue 
 					modeData={props.modeData}
 					userData={props.userData}
+					alterModal={props.alterModal}
 					newItem={props.newItem}
 				/> 
 			: null }
@@ -30,6 +31,7 @@ function IssueDisplay (props) {
 				<EditIssue 
 					modeData={props.modeData}
 					userData={props.userData}
+					alterModal={props.alterModal}
 					editItem={props.editItem}
 					deleteItem={props.deleteItem}
 				/> 

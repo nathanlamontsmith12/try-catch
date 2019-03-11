@@ -1,34 +1,22 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
-// Styles: 
-const StyledDiv = styled.div `
-	input {
-		display: block;
-	}
-`
-
-	// position: absolute;
-	// height: 100%;
-	// width: 100%;
-	// z-index: 40;
-	// display: flex;
-	// justify-content: center;
-	// align-items: center;
-
-	// div {
-
-	// }
-
-class NewNote extends Component {
+class EditNote extends Component {
 	constructor(props){
 		super();
 		this.state = {
-			issue_id: props.issue.id,
-			name: "",
-			content: "",
-			message: ""
+			message: "",
+			name: props.note.name,
+			note: props.note,
+			content: props.note.content,
+			noteId: props.note.id 
 		}
+	}
+	reset = () => {
+		this.setState({
+			name: this.props.note.name,
+			content: this.props.note.content,
+			message: ""
+		})
 	}
 	handleChange = (evt) => {
 		this.setState({
@@ -39,11 +27,14 @@ class NewNote extends Component {
 	submit = async (evt) => {
 
 		evt.preventDefault();
-		console.log("SUBMIT NOTE HIT")
+		console.log("SUBMIT NOTE EDITS")
 
 		if (!this.state.name || !this.state.content) {
+
 			this.setState({
-				message: "Invalid input"
+				message: "Invalid input",
+				name: this.props.note.name,
+				content: this.props.note.content
 			})
 
 			return 
@@ -51,14 +42,7 @@ class NewNote extends Component {
 
 		try {
 
-			this.setState({
-				issue_id: this.props.issue.id,
-				name: "",
-				content: "",
-				message: ""
-			})
-
-			await this.props.addNote(this.state);
+			await this.props.editNote(this.state);
 
 			this.props.changeView("view");
 			
@@ -68,43 +52,55 @@ class NewNote extends Component {
 		}
 	}
 	render(){
-		return (
-			<StyledDiv>
+		return(
+			<div>
 				<span
 					className="fakeLink"
 					onClick={this.props.changeView.bind(null, "view")}
 				> 
 					back 
 				</span>
-				<h1>ADD NOTE</h1>
+				<h1>EDIT NOTE</h1>
 				<br />
 				<p> {this.state.message} &nbsp; </p>
+
 				<br />
+
+				<button 
+					onClick={this.props.deleteNote.bind(null, this.state.noteId)}
+				> 
+					Delete Note 
+				</button>
+
+				<br />
+
 				<form>
 					<input 
 						type="text"
 						name="name"
 						value={this.state.name}
-						placeholder="Enter note name..."
 						onChange={this.handleChange}
 					/>
+					<br />
 					<input 
 						type="text"
 						name="content"
 						value={this.state.content}
-						placeholder="Enter note text..."
 						onChange={this.handleChange}
 					/>
 					<br />
-					<button onClick={this.submit}> SAVE </button>
+					<button onClick={this.submit}> SAVE CHANGES </button>
 				</form>
-			</StyledDiv>
+				<span 
+					className="fakeLink"
+					onClick={this.reset}
+				>
+					Reset Form 
+				</span>
+			</div>
 		)
 	}
 }
 
-export default NewNote;
 
-
-// changeView(view)
-// addNote(data)
+export default EditNote;

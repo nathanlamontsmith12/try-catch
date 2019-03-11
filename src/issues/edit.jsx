@@ -75,6 +75,19 @@ class EditIssue extends Component {
 				: null }
 				{ !this.state.check ? 
 					<div>
+						<span 
+							className="fakeLink"
+							onClick={this.props.alterModal.bind(
+								null,
+								{
+									form: "issue",
+									action: "view",
+									display: this.props.modeData.display 
+								}
+							)}
+						> 
+							back 
+						</span>
 						<h1> EDIT ISSUE </h1>
 						<br />
 						<button onClick={this.toggleCheck}> Delete Issue </button>

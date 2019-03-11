@@ -2,36 +2,21 @@ import React, { Component } from 'react';
 
 // Components: 
 import NewNote from './NewNote';
+import EditNote from './EditNote';
 
 
 class ViewIssue extends Component {
 	constructor(props){
 		super();
 		this.state = {
-			view: "view", // --> acceptable: "view", "new", "edit"
+			view: "view", // --> acceptable: "view", "new", "edit", "detail"
 			issue: props.modeData.display,
-			needUpdate: false,
-			firstLoad: true,
-			notes: []
+			notes: [],
+			targetNote: null
 		}
-	}
-	async shouldComponentUpdate(nextProps, nextState){
-
-		if (this.state.needUpdate && !this.state.firstLoad) {
-			try {
-				await this.updateNotes(); 
-			} catch(err) {
-				console.log(err);
-				return false
-			}
-		}
-
-		return true
 	}
 	componentDidMount(){
-		if (this.state.firstLoad) {
-			this.updateNotes();
-		}
+		this.updateNotes();
 	}
 	updateNotes = async () => {
 		try {
@@ -56,8 +41,6 @@ class ViewIssue extends Component {
 			}
 
 			this.setState({
-				needUpdate: false,
-				firstLoad: false,
 				notes: updatedNotes,
 				view: "view"
 			})
@@ -92,10 +75,69 @@ class ViewIssue extends Component {
 			const responseJson = await response.json();
 			console.log("RESPONSE: ", responseJson)
 
+			this.updateNotes();
+
 		} catch(err) {
 			console.log(err);
 			return err
 		}
+	}
+	editNote = async (data) => {
+		console.log("EDIT NOTE: ", data)
+
+		try {
+
+			const url = process.env.REACT_APP_API_URL + "/api/v1/issue/note/" + data.noteId.toString()
+
+			const body = {
+				name: data.name,
+				content: data.content
+			}
+
+			const response = await fetch(url, {
+				method: 'PATCH',
+				credentials: 'include',
+				body: JSON.stringify( body ),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			this.updateNotes();
+
+		} catch(err) {
+			console.log(err);
+			return err
+		}
+	}
+	deleteNote = async (noteId) => {
+		console.log("DELETE NOTE: ", noteId)
+
+		try {
+
+			const url = process.env.REACT_APP_API_URL + "/api/v1/issue/note/" + noteId.toString()
+
+			const response = await fetch(url, {
+				method: 'DELETE',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			this.updateNotes();
+
+		} catch(err) {
+			console.log(err);
+			return err
+		}
+
 	}
 	changeView = (view) => {
 		this.setState({
@@ -103,13 +145,51 @@ class ViewIssue extends Component {
 			needUpdate: true
 		})
 	}
+	toEditView = (id) => {
+
+		const selectedNote = this.state.notes.find( (note) => {
+			if (note.id === id) {
+				return true
+			} else {
+				return false 
+			}
+		})
+
+		this.setState({
+			view: "edit",
+			targetNote: selectedNote
+		})
+	}
 	render(){
 
 		let notes = "No notes for this issue"
 
 		if (this.state.notes && this.state.notes.length > 0) {
-			notes = this.state.notes.map( (note, i) => {
-				return (<li key={i}> <strong> {note.name} </strong> <br /> {note.content} </li>)
+
+			let tempNotes = this.state.notes;
+
+			if (tempNotes.length > 1) {
+				tempNotes.sort( (a, b) => {
+					return a.id - b.id 
+				})
+			}
+
+			notes = tempNotes.map( (note, i) => {
+				return (
+					<li key={i}> 
+						<hr />
+						<strong> {note.name} </strong> 
+						<br />
+						<button 
+							onClick={this.toEditView.bind(null, note.id)}
+						> 
+							Edit 
+						</button>
+						<br />
+						<p> {note.content} </p>
+						<hr /> 
+					</li>
+				)
 			})			
 		}
 
@@ -123,42 +203,53 @@ class ViewIssue extends Component {
 						issue={this.state.issue}
 					/> 
 
-				:
+				: null }
 
-				<div>
-					<h1> VIEW ISSUE </h1>
+				{ this.state.view === "view" ? 
+					<div>
+						<h1> VIEW ISSUE </h1>
 
-					<span 
-						className="fakeLink" 
-						style={{display: "block"}}
-						onClick={this.props.alterModal.bind(
-							null, 
-							({
-								action: "edit", 
-								display: this.props.modeData.display, 
-								owner_id: this.props.modeData.display.owner_id,
-								form: "issue"
-							})
-						)}
-					> 
-						Edit / Remove Issue 
-					</span>
-					
-					<h3> { this.props.modeData.display.name } </h3>
-					<p> { this.props.modeData.display.description } </p>
-					
-					<span 
-						className="fakeLink"
-						style={{display: "block"}}
-						onClick={this.changeView.bind(null, "new")}
-					> 
-						Add Note 
-					</span>
+						<span 
+							className="fakeLink" 
+							style={{display: "block"}}
+							onClick={this.props.alterModal.bind(
+								null, 
+								({
+									action: "edit", 
+									display: this.props.modeData.display, 
+									owner_id: this.props.modeData.display.owner_id,
+									form: "issue"
+								})
+							)}
+						> 
+							Edit / Remove Issue 
+						</span>
+						
+						<h3> { this.props.modeData.display.name } </h3>
+						<p> { this.props.modeData.display.description } </p>
+						
+						<span 
+							className="fakeLink"
+							style={{display: "block"}}
+							onClick={this.changeView.bind(null, "new")}
+						> 
+							Add Note 
+						</span>
 
-					<ul>
-						{ notes }
-					</ul>
-				</div> }
+						<ul>
+							{ notes }
+						</ul>
+					</div> 
+				: null }
+
+				{ this.state.view === "edit" && this.state.targetNote ? 
+					<EditNote 
+						changeView={this.changeView}
+						editNote={this.editNote}
+						deleteNote={this.deleteNote}
+						note={this.state.targetNote}
+					/>
+				: null }
 			</div>
 		)
 	}
