@@ -20,8 +20,8 @@ class Auth extends Component {
 			username: "",
 			email: "",
 			password: "",
-			confirmation: "",
-			processing: false
+			confirmation: "", 
+			view: props.view
 		}
 	}
 	handleChange = (evt) => {
@@ -59,8 +59,7 @@ class Auth extends Component {
 			username: "",
 			email: "",
 			password: "",
-			confirmation: "",
-			processing: false,			
+			confirmation: ""			
 		})
 
 		this.props.setMessage(message)
@@ -92,6 +91,19 @@ class Auth extends Component {
 			this.quickFail("Unknown Error")
 			return
 		}
+	}
+	shouldComponentUpdate(nextProps, nextState){
+		if (this.props.view !== nextProps.view) {
+			this.setState({
+				username: "",
+				email: "",
+				password: "",
+				confirmation: "",
+				view: nextProps.view
+			})
+		}
+
+		return true
 	}
 	render() {
 
