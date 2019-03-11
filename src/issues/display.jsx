@@ -22,6 +22,8 @@ function IssueDisplay (props) {
 					modeData={props.modeData}
 					userData={props.userData}
 					alterModal={props.alterModal}
+					newItem={props.newItem}
+					editItem={props.editItem}
 				/> 
 			: null }
 			{ props.modeData.action === "edit" ? 
