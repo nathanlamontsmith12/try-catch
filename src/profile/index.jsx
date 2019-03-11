@@ -35,6 +35,15 @@ class Profile extends Component {
 			userData: props.userData
 		}
 	}
+	shouldComponentUpdate(nextProps, nextState){
+		if (this.state.userData !== nextProps.userData) {
+			this.setState({
+				userData: nextProps.userData
+			})
+		}
+		
+		return true
+	}
 	render(){
 //		console.log("PROFILE PROPS: ", this.props)
 

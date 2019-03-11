@@ -28,19 +28,22 @@ class ProfileEdit extends Component {
 			message: ""
 		}
 	}
-	reset = () => {
+	reset = (evt, message = "") => {
 
-		console.log("reset form triggered")
+		let bio = this.props.modeData.display.bio;
 
-		// NEED TO BUGFIX THIS TO APPLY IT FOR THIS
+		if (!this.props.modeData.display.bio) {
+			bio = ""
+		}
 
-		// this.setState({
-		// 	email: this.props.modeData.display.email,
-		// 	bio: this.props.modeData.display.bio,
-		// 	username: this.props.modeData.display.username,
-		// 	password: "",
-		// 	confirmation: ""
-		// })
+		this.setState({
+			email: this.props.modeData.display.email,
+			bio: bio,
+			currentPassword: "",
+			newPassword: "",
+			confirmation: "",
+			message: message
+		})
 	}
 	handleChange = (evt) => {
 		this.setState({
@@ -48,73 +51,116 @@ class ProfileEdit extends Component {
 			message: ""
 		})
 	}
-	quickCheck = () => {
+	quickCheck = async () => {
 
 		console.log("quick check invoked")
-		
-		let pass = {message: "", status: true};
 
-		if (!this.state.currentPassword) {
-			pass.status = false;
-			pass.message = "You must enter your password to make any changes"
-		}
+		try { 
 
-		if (this.state.newPassword) {
-			if (this.state.newPassword !== this.state.confirmation) {
+			let pass = {message: "", status: true};
+
+			if (!this.state.currentPassword) {
 				pass.status = false;
-				pass.message = "New password must match confirmation";
-				pass.clear = true;
+				pass.message = "You must enter your password to make any changes"
 			}
-		}
 
-		if (!this.state.email) {
-			pass.status = false;
-			pass.message = "Invalid email"
-		}
+			if (this.state.newPassword) {
+				if (this.state.newPassword !== this.state.confirmation) {
+					pass.status = false;
+					pass.message = "New password must match confirmation";
+					pass.clear = true;
+				}
+			}
 
-		return pass;
+			if (!this.state.email) {
+				pass.status = false;
+				pass.message = "Invalid email"
+			}
+
+			if (pass.status === true) {
+
+				const url = process.env.REACT_APP_API_URL + "/api/v1/user/check"
+
+				const body = {
+					user_id: this.state.userId,
+					password: this.state.currentPassword
+				}
+
+				const response = await fetch(url, {
+					method: 'POST',
+					credentials: 'include',
+					body: JSON.stringify( body ),
+
+				})
+
+				const responseJson = await response.json()
+				console.log("RESPONSE: ", responseJson)
+
+				if (!responseJson.done) {
+					pass.status = false;
+					pass.message = "Incorrect password. Failed to authenticate."
+					pass.clear = true;
+				}
+
+			}
+
+			return pass;
+
+		} catch(err) {
+			console.log(err);
+			return false 
+		}
 	}
-	submit = (evt) => {
-		evt.preventDefault();
+	submit = async (evt) => {
 
+		evt.preventDefault();
 		console.log("submit form triggered")
 
-		const check = this.quickCheck();
+		try { 
+			const check = await this.quickCheck();
 
-		if (check.status) {
-
-			const body = {
-				currentPassword: this.state.currentPassword,
-				newPassword: this.state.newPassword,
-				email: this.state.email,
-				bio: this.state.bio,
-				username: this.state.username,
-				userId: this.state.userId,
-				id: this.state.userId
+			if (check === false) {
+				throw new Error("Failed to authenticate due to server problem")
 			}
 
-			if (this.state.password) {
-				body.newPassword = this.state.newPassword 
-			}
-			
-			this.setState({
-				message: ""
-			})
+			if (check.status) {
 
-			this.props.editItem(body, "profile")
+				const body = {
+					currentPassword: this.state.currentPassword,
+					newPassword: this.state.newPassword,
+					email: this.state.email,
+					bio: this.state.bio,
+					username: this.state.username,
+					userId: this.state.userId,
+					id: this.state.userId
+				}
 
-		} else {
-			if (check.clear) {
+				if (this.state.password) {
+					body.newPassword = this.state.newPassword 
+				}
+				
 				this.setState({
-					message: check.message,
-					newPassword: "",
-					confirmation: ""
+					message: ""
 				})
+
+				this.props.editItem(body, "profile")
+
 			} else {
-				this.setState({
-					message: check.message
-				})
+				if (check.clear) {
+					this.setState({
+						message: check.message,
+						newPassword: "",
+						confirmation: ""
+					})
+				} else {
+					this.setState({
+						message: check.message
+					})
+				}
 			}
+		} catch(err) {
+			console.log(err);
+			this.reset(null, "Error — failed to authenticate")
 		}
 	}
 	render(){
@@ -129,9 +175,13 @@ class ProfileEdit extends Component {
 			<StyledDiv>
 				<h1> EDIT PROFILE </h1>
 				<h3> {this.state.username} </h3>
-				<p> {this.state.message} &nbsp; </p>
+				<br />
 				<form>
-					<h4> Enter your password to make any changes </h4>
+					{ this.state.message ? 
+						<h4> {this.state.message} </h4> 
+					: 
+						<h4> Enter your password to make any changes </h4>
+					}
 					<input 
 						type="password" 
 						name="currentPassword" 
