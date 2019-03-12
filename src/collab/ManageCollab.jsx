@@ -8,7 +8,13 @@ class ManageCollab extends Component {
 		}
 	}
 	render(){
-		return(<h2> Manage Collaborations </h2>)
+		return(
+			<div>
+				<br />
+				<br />
+				<h2> Manage Collaborations </h2>
+			</div>
+		)
 	}
 }
 

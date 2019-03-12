@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div `
+	margin-left: 20px;
+`
 
 class SearchUsers extends Component {
 	constructor(props){
@@ -64,24 +69,60 @@ class SearchUsers extends Component {
 
 		if (this.state.searchResults && this.state.searchResults.length > 0) {
 			results = this.state.searchResults.map( (result, i) => {
+				
+				// should user be able to add collaborator? 
+				let isDisabled = false;
+
+				if (this.state.user.id === result.id) {
+					isDisabled = true
+				} else {
+					this.state.collaborations.forEach((collaboration)=>{
+						if (collaboration.user_id === result.id || collaboration.collaborator_id === result.id) {
+							isDisabled = true 
+						}
+					})
+				}
+
 				return (
 					<li key={i}> 
-						{result.username} 
-						<button onClick={this.newCollaborator.bind(
-							null, 
-							result.id, 
-							result.username
-						)}>
-							Add To Collaborators
+						<button 
+							onClick={this.newCollaborator.bind(
+								null, 
+								result.id, 
+								result.username
+							)}
+							disabled={isDisabled}
+						>
+							Add 
 						</button>
+						&nbsp; &nbsp; {result.username}
+						<br />
 					</li>
 				)
 			}) 
 		}
 
+		let exactMatchIsDisabled = false;
+
+		if (this.state.exactMatch) {
+			if (this.state.user.id === this.state.exactMatch.id) {
+				exactMatchIsDisabled = true;
+			} else {
+				this.state.collaborations.forEach((collaboration)=>{
+					if (collaboration.user_id === this.state.exactMatch.id || collaboration.collaborator_id === this.state.exactMatch.id) {
+						exactMatchIsDisabled = true;
+					}
+				})
+			}
+		}
+
 		return (
-			<div>
+			<StyledDiv>
+				<br />
+				<br />
 				<h2> Find Collaborators By Username </h2>
+				<br />
+				<br />
 				<form>
 					<input 
 						type="text"
@@ -91,33 +132,35 @@ class SearchUsers extends Component {
 					/>
 					<br />
 					<button onClick={this.submit}> Search </button>
-				</form>
-				
+				</form>	
+				<br />				
 				{ this.state.lastQuery ? 
 					<div> 
 						<h4>Last Search Query: </h4>
 						<p> {this.state.lastQuery} </p>
 					</div>
 				: null }
-				
+				<br />
 				{ this.state.exactMatch ? 
 					<div> 
 						<hr />
 						<h4>Exact Match: </h4>
-						<p> {this.state.exactMatch.username} </p>
 						<button 
 							onClick={this.newCollaborator.bind(
 								null, 
 								this.state.exactMatch.id, 
 								this.state.exactMatch.username
 							)}
+							disabled={exactMatchIsDisabled}
 						> 
-							Add To Collaborators 
+							Add  
 						</button> 
+						<span> &nbsp; &nbsp; {this.state.exactMatch.username} </span>
 					</div>
 				: null }
 
 				<hr />
+				<br />
 				<h4> Results: </h4>
 				
 				{ this.state.searchResults && this.state.searchResults.length > 0 ? 
@@ -132,25 +175,9 @@ class SearchUsers extends Component {
 					</div> 
 				}
 
-			</div>
+			</StyledDiv>
 		)
 	}
 }
 
 export default SearchUsers;
-
-// { this.state.view === "search" ? 
-// 	<SearchUsers 
-// 		data={this.state} 
-// 		searchUsers={this.searchUsers} 
-// 		addCollab={this.addCollab} 
-// 	/> 
-
-// view: initView, // "search" or "manage"
-// user: props.userData,
-// issues: props.issues,
-// collaborations: props.collaborations,
-// shared_issues: props.shared_issues,
-// searchResults: [],
-// exactMatch: null,
-// message: ""
