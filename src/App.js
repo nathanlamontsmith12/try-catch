@@ -26,7 +26,7 @@ class App extends Component {
             appModal: null,
             issues: [],
             collaborations: [],
-            sharedIssues: [], 
+            shared_issues: [], 
             userData: null
         }
     }
@@ -47,7 +47,7 @@ class App extends Component {
             userData: data.user,
             issues: data.issues,
             collaborations: data.collaborations,
-            sharedIssues: data.shared_issues
+            shared_issues: data.shared_issues
         })
 
         // console.log("APP STATE: ", this.state)
@@ -63,7 +63,7 @@ class App extends Component {
                 userData: newData.user,
                 issues: newData.issues,
                 collaborations: newData.collaborations,
-                sharedIssues: newData.shared_issues              
+                shared_issues: newData.shared_issues              
             })           
 
         } catch(err) {
@@ -80,7 +80,7 @@ class App extends Component {
             appModal: null,
             issues: [],
             collaborations: [],
-            sharedIssues: [], 
+            shared_issues: [], 
             userData: null
         })
     }
@@ -137,7 +137,7 @@ class App extends Component {
                         <Route 
                             exact path="/" 
                             render={ (props) => <Home {...props} 
-                            appLogin={this.appLogin} /> }
+                                appLogin={this.appLogin} /> }
                         /> 
                     : null }
 
@@ -145,10 +145,13 @@ class App extends Component {
                         <Route 
                             exact path="/" 
                             render={ (props) => <Issues {...props}
-                            modalOn={this.modalOn} 
-                            userData={this.state.userData} 
-                            getUser={this.getUser} 
-                            issues={this.state.issues} /> } 
+                                modalOn={this.modalOn} 
+                                userData={this.state.userData} 
+                                getUser={this.getUser} 
+                                issues={this.state.issues} 
+                                collaborations={this.state.collaborations}
+                                shared_issues={this.state.shared_issues}
+                            /> } 
                         /> 
                     : null }
 
@@ -156,10 +159,13 @@ class App extends Component {
                         <Route 
                             exact path="/issues" 
                             render={ (props) => <Issues {...props}
-                            modalOn={this.modalOn} 
-                            userData={this.state.userData} 
-                            getUser={this.getUser} 
-                            issues={this.state.issues} /> } 
+                                modalOn={this.modalOn} 
+                                userData={this.state.userData} 
+                                getUser={this.getUser} 
+                                issues={this.state.issues} 
+                                collaborations={this.state.collaborations}
+                                shared_issues={this.state.shared_issues}
+                            /> } 
                         /> 
                      : null }
 
@@ -167,9 +173,13 @@ class App extends Component {
                         <Route 
                             exact path="/collab" 
                             render={ (props) => <Collab {...props}
-                            modalOn={this.modalOn} 
-                            userData={this.state.userData} 
-                            getUser={this.getUser} /> } 
+                                modalOn={this.modalOn} 
+                                userData={this.state.userData} 
+                                getUser={this.getUser} 
+                                issues={this.state.issues}
+                                collaborations={this.state.collaborations}
+                                shared_issues={this.state.shared_issues}
+                            /> } 
                         /> 
                     : null } 
 
@@ -177,9 +187,13 @@ class App extends Component {
                         <Route 
                             exact path="/profile" 
                             render={ (props) => <Profile {...props}
-                            modalOn={this.modalOn} 
-                            userData={this.state.userData} 
-                            getUser={this.getUser} /> } 
+                                modalOn={this.modalOn} 
+                                userData={this.state.userData} 
+                                getUser={this.getUser} 
+                                issues={this.state.issues}
+                                collaborations={this.state.collaborations}
+                                shared_issues={this.state.shared_issues}
+                            /> } 
                         /> 
                     : null }
 

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+// Components: 
+import SearchUsers from './SearchUsers.jsx';
+import ManageCollab from './ManageCollab.jsx';
+
 const StyledDiv = styled.div `
 	display: flex;
 	justify-content: center;
@@ -8,13 +12,10 @@ const StyledDiv = styled.div `
 	background: rgba(255, 99, 71, 0.8); 
 	height: 100%;
 
-	div {
-		height: 100%;
-	}
-
-	.center {
+	.innerNav {
 		display: flex;
-		justify-content: center;
+		align-items: center;
+		justify-content: space-around;
 	}
 
 	section {
@@ -26,25 +27,219 @@ const StyledDiv = styled.div `
 `
 
 class Collab extends Component {
-	constructor(){
+	constructor(props){
 		super();
-		this.state = {
 
+		let initView = "search"
+
+		if (props.collaborations && props.collaborations.length > 0) {
+			initView = "manage"
+		}
+
+		this.state = {
+			view: initView, // "search" or "manage"
+			user: props.userData,
+			issues: props.issues,
+			collaborations: props.collaborations,
+			shared_issues: props.shared_issues,
+			searchResults: [],
+			exactMatch: null,
+			message: ""
 		}
 	}
+	toggleView = () => {
+		if (this.state.view === "search") {
+			this.setState({
+				view: "manage"
+			})
+		} else {
+			this.setState({
+				view: "search"
+			})
+		}
+	}
+	searchUsers = async (query) => {
+		// needs: query  
+		try {
+			
+			const url = process.env.REACT_APP_API_URL + "/api/v1/user/search"
+
+			const response = await fetch(url, {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify({query: query}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			let exactMatch = null;
+
+			if (responseJson.exactMatch) {
+				exactMatch = responseJson.exactMatch
+			}
+
+			this.setState({
+				searchResults: responseJson.similar_matches,
+				exactMatch: exactMatch
+			})
+
+			return responseJson 
+
+		} catch(err){
+			console.log(err);
+			return err
+		}
+
+	}
+	addCollab = async (collaborator_id, username) => {
+		// needs: user_id, collaborator_id 
+		try {
+			const url = process.env.REACT_APP_API_URL + "/api/v1/collab"
+
+			const response = await fetch(url, {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify({
+					user_id: this.state.user.id,
+					collaborator_id: collaborator_id
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			if (!response.ok) {
+				throw new Error("Server communication error. Failed to add collaborator")
+			}
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			if (!responseJson.done) {
+				this.setState({
+					message: responseJson.message
+				})
+				throw new Error(responseJson.message)
+			}
+
+			this.setState({
+				message: `Added collaborator — awaiting confirmation from ${username}`
+			})
+
+			return responseJson
+
+		} catch(err){
+			console.log(err);
+			return err
+		}
+
+	}
+	updateCollab = async (collaboration_id, user_id) => {
+		// needs: collaboration_id, user_id  
+		try {
+//			const url = process.env.REACT_APP_API_URL 
+
+		} catch(err){
+			console.log(err);
+			return err
+		}
+
+	}
+	shareIssue = async (issue_id, collaboration_id) => {
+		// needs: owner_id, collaborator_id, collaboration_id, issue_id 
+		try {
+//			const url = process.env.REACT_APP_API_URL 
+
+		} catch(err){
+			console.log(err);
+			return err
+		}
+
+	}
+	deleteCollab = async (collaboration_id) => {
+		// needs: collaboration_id  
+		try {
+//			const url = process.env.REACT_APP_API_URL 
+
+		} catch(err){
+			console.log(err);
+			return err
+		}
+
+	}
+	unshareIssue = async (shared_issue_id) => {
+		// needs: shared_issue_id  
+		try {
+//			const url = process.env.REACT_APP_API_URL 
+
+		} catch(err){
+			console.log(err);
+			return err
+		}
+
+	}
 	render(){
-		console.log("COLLAB PROPS: ", this.props)
+		console.log("COLLAB STATE: ", this.state)
 		return (
 			<StyledDiv>
 				<section>
 					<h1> Collab </h1>
+					<div className="innerNav">
+						<span 
+							className="fakeLink"
+							onClick={this.toggleView}
+						> 
+							Find / Add Collabs
+						</span>
+						<span 
+							className="fakeLink"
+							onClick={this.toggleView}
+						> 
+							Manage Collabs
+						</span>
+					</div>
+					
+					{ this.state.view === "search" ? 
+						<SearchUsers 
+							data={this.state} 
+							searchUsers={this.searchUsers} 
+							addCollab={this.addCollab} 
+						/> 
+					: null }
+
+					{ this.state.view === "manage" ? 
+						<ManageCollab /> 
+					: null}
+
 				</section>
 			</StyledDiv>
 		)
 	}
 }
 
+
 /*
+    modalOn = (data) => {
+        this.setState({
+            appModal: data
+        })
+    }
+
+<Route 
+	exact path="/collab" 
+	render={ (props) => <Collab {...props}
+	    modalOn={this.modalOn} 
+	    userData={this.state.userData} 
+	    getUser={this.getUser} 
+	    issues={this.state.issues}
+	    collaborations={this.state.collaborations}
+	    shared_issues={this.state.shared_issues}
+	/>
+
 getUser: ƒ (_x2)
 history: {length: 50, action: "PUSH", location: {…}, createHref: ƒ, push: ƒ, …}
 location: {pathname: "/collab", search: "", hash: "", state: undefined, key: "gbj5as"}
@@ -60,16 +255,6 @@ password_digest: "$2a$10$y5vmxBXasEj0UuGpc9SoeumksK.3EO0zNim3gp.lygiQStfbCbzpe"
 reg_time: 1552168474662
 username: "guy"
 
-
-    modalOn = (data) => {
-        this.setState({
-            appModal: data
-        })
-    }
-
-			modeData: props.data.appModal,
-			userData: props.data.userData,
-			issues: props.data.issues
 */
 
 
