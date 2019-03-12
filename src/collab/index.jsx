@@ -132,21 +132,47 @@ class Collab extends Component {
 		}
 
 	}
-	updateCollab = async (collaboration_id, user_id) => {
+	acceptCollab = async (collaboration_id, user_id) => {
 		// needs: collaboration_id, user_id  
-		try {
-//			const url = process.env.REACT_APP_API_URL 
 
-		} catch(err){
-			console.log(err);
-			return err
-		}
+		// console.log("accept collab: ")
+		// console.log("collab id: ", collaboration_id)
+		// console.log("user id: ", user_id) 
 
-	}
-	shareIssue = async (issue_id, collaboration_id) => {
-		// needs: owner_id, collaborator_id, collaboration_id, issue_id 
 		try {
-//			const url = process.env.REACT_APP_API_URL 
+
+			const url = process.env.REACT_APP_API_URL + "/api/v1/collab/" + collaboration_id
+
+			const response = await fetch(url, {
+				method: 'PATCH',
+				credentials: 'include',
+				body: JSON.stringify({
+					user_id: user_id
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			if (!response.ok) {
+				throw new Error("Server communication error. Failed to add collaborator")
+			}
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			if (!responseJson.done) {
+				this.setState({
+					message: responseJson.message
+				})
+				throw new Error(responseJson.message)
+			}
+
+			this.setState({
+				message: "Activated collaboration"
+			})
+
+			return responseJson
 
 		} catch(err){
 			console.log(err);
@@ -156,6 +182,50 @@ class Collab extends Component {
 	}
 	deleteCollab = async (collaboration_id) => {
 		// needs: collaboration_id  
+
+		// console.log("DELETE COLLAB: ", collaboration_id)
+
+		try {
+			const url = process.env.REACT_APP_API_URL + "/api/v1/collab/" + collaboration_id
+
+			const response = await fetch(url, {
+				method: 'DELETE',
+				credentials: 'include',
+				body: JSON.stringify({
+					collaboration_id: collaboration_id
+				}),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			if (!response.ok) {
+				throw new Error("Server communication error. Action failed.")
+			}
+
+			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			if (!responseJson.done) {
+				this.setState({
+					message: responseJson.message
+				})
+				throw new Error(responseJson.message)
+			}
+
+			this.setState({
+				message: "Undid collaboration"
+			})
+
+			return responseJson
+
+		} catch(err){
+			console.log(err);
+			return err
+		}
+	}
+	shareIssue = async (issue_id, collaboration_id) => {
+		// needs: owner_id, collaborator_id, collaboration_id, issue_id 
 		try {
 //			const url = process.env.REACT_APP_API_URL 
 
@@ -209,6 +279,8 @@ class Collab extends Component {
 						<ManageCollab 
 							data={this.state}
 							modalOn={this.props.modalOn}
+							acceptCollab={this.acceptCollab}
+							deleteCollab={this.deleteCollab}
 						/> 
 					: null}
 

@@ -48,13 +48,41 @@ class ManageCollab extends Component {
 
 		if (this.state.pendingCollaborationsReceived.length > 0) {
 			received = this.state.pendingCollaborationsReceived.map((collab, i)=>{
-				return <li key={i}> {collab.initiator} </li>
+				return (
+					<li key={i}> 
+						<button 
+							onClick={this.props.acceptCollab.bind(
+								null, 
+								collab.id, 
+								this.state.user.id
+						)}> 
+							Accept 
+						</button> &nbsp; &nbsp; 
+						{collab.initiator} &nbsp; &nbsp; 
+						<button onClick={this.props.deleteCollab.bind(
+							null,
+							collab.id
+						)}> 
+							Decline 
+						</button> 
+					</li>
+				)
 			})
 		}
 
 		if (this.state.pendingCollaborationsSent.length > 0) {
 			sent = this.state.pendingCollaborationsSent.map((collab, i)=>{
-				return <li key={i}> {collab.collaborator} </li>
+				return (
+					<li key={i}> 
+						{collab.collaborator} &nbsp; &nbsp; 
+						<button onClick={this.props.deleteCollab.bind(
+							null,
+							collab.id
+						)}> 
+							Undo 
+						</button> 
+					</li>
+				)
 			})
 		}
 
@@ -66,7 +94,7 @@ class ManageCollab extends Component {
 				} else {
 					display = collab.initiator  
 				}
-				return <li key={i}> {display} </li>				
+				return <li key={i}> <button> Manage </button> &nbsp; &nbsp; {display} </li>				
 			})
 		}
 
