@@ -47,16 +47,10 @@ class Collab extends Component {
 			message: ""
 		}
 	}
-	toggleView = () => {
-		if (this.state.view === "search") {
-			this.setState({
-				view: "manage"
-			})
-		} else {
-			this.setState({
-				view: "search"
-			})
-		}
+	changeView = (view) => {
+		this.setState({
+			view: view
+		})
 	}
 	searchUsers = async (query) => {
 		// needs: query  
@@ -191,13 +185,13 @@ class Collab extends Component {
 					<div className="innerNav">
 						<span 
 							className="fakeLink"
-							onClick={this.toggleView}
+							onClick={this.changeView.bind(null, "search")}
 						> 
 							Find / Add Collabs
 						</span>
 						<span 
 							className="fakeLink"
-							onClick={this.toggleView}
+							onClick={this.changeView.bind(null, "manage")}
 						> 
 							Manage Collabs
 						</span>

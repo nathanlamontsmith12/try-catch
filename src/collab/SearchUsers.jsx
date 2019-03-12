@@ -56,6 +56,8 @@ class SearchUsers extends Component {
 	newCollaborator = (id, username) => {
 		console.log("Add collaborator: ", username)
 		console.log("Collaborator Id: ", id)
+
+		this.props.addCollab(id, username)
 	}
 	handleChange = (evt) => {
 		this.setState({

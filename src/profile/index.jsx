@@ -47,7 +47,7 @@ class Profile extends Component {
 	render(){
 //		console.log("PROFILE PROPS: ", this.props)
 
-		let bio = "No bio. Click 'Edit Profile, above, to add some info about yourself!'"
+		let bio = "No bio (Click 'Edit Profile' to add some info about yourself)"
 
 		if (this.state.userData.bio) {
 			bio = this.state.userData.bio 

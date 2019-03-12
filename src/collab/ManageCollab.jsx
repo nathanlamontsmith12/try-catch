@@ -48,13 +48,13 @@ class ManageCollab extends Component {
 
 		if (this.state.pendingCollaborationsReceived.length > 0) {
 			received = this.state.pendingCollaborationsReceived.map((collab, i)=>{
-				return <li key={i}> {collab.user_id} </li>
+				return <li key={i}> {collab.initiator} </li>
 			})
 		}
 
 		if (this.state.pendingCollaborationsSent.length > 0) {
 			sent = this.state.pendingCollaborationsSent.map((collab, i)=>{
-				return <li key={i}> {collab.collaborator_id} </li>
+				return <li key={i}> {collab.collaborator} </li>
 			})
 		}
 
@@ -62,9 +62,9 @@ class ManageCollab extends Component {
 			active = this.state.activeCollaborations.map((collab, i)=>{
 				let display;
 				if (collab.collaborator_id !== this.state.user.id) {
-					display = collab.collaborator_id
+					display = collab.collaborator
 				} else {
-					display = collab.user_id 
+					display = collab.initiator  
 				}
 				return <li key={i}> {display} </li>				
 			})
