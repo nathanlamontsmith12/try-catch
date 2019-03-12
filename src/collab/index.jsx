@@ -212,7 +212,10 @@ class Collab extends Component {
 					: null }
 
 					{ this.state.view === "manage" ? 
-						<ManageCollab /> 
+						<ManageCollab 
+							data={this.state}
+							modalOn={this.props.modalOn}
+						/> 
 					: null}
 
 				</section>

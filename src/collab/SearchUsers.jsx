@@ -22,7 +22,6 @@ class SearchUsers extends Component {
 		this.state = {
 			query: "",
 			lastQuery: "",
-			data: props.data,
 			user: props.data.user,
 			issues: props.data.issues,
 			collaborations: props.data.collaborations,
