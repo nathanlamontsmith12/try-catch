@@ -24,6 +24,7 @@ class NewNote extends Component {
 	constructor(props){
 		super();
 		this.state = {
+			user: props.user,
 			issue_id: props.issue.id,
 			name: "",
 			content: "",
@@ -68,6 +69,9 @@ class NewNote extends Component {
 		}
 	}
 	render(){
+
+		console.log("NEW NOTE STATE: ", this.state)
+
 		return (
 			<StyledDiv>
 				<span

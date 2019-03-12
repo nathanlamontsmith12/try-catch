@@ -25,11 +25,12 @@ class App extends Component {
             regTime: "",
             appModal: null,
             issues: [],
+            collaborations: [],
+            sharedIssues: [], 
             userData: null
         }
     }
     appLogin = async (userData) => {
-
 
         const userId = userData.userId;
 
@@ -44,7 +45,9 @@ class App extends Component {
             userId: data.user.id,
             regTime: data.user.reg_time,
             userData: data.user,
-            issues: data.issues
+            issues: data.issues,
+            collaborations: data.collaborations,
+            sharedIssues: data.shared_issues
         })
 
         // console.log("APP STATE: ", this.state)
@@ -58,7 +61,9 @@ class App extends Component {
                 userId: newData.user.id,
                 regTime: newData.user.reg_time,
                 userData: newData.user,
-                issues: newData.issues              
+                issues: newData.issues,
+                collaborations: newData.collaborations,
+                sharedIssues: newData.shared_issues              
             })           
 
         } catch(err) {
@@ -74,6 +79,8 @@ class App extends Component {
             regTime: "",
             appModal: null,
             issues: [],
+            collaborations: [],
+            sharedIssues: [], 
             userData: null
         })
     }

@@ -10,6 +10,7 @@ class ViewIssue extends Component {
 		super();
 		this.state = {
 			view: "view", // --> acceptable: "view", "new", "edit", "detail"
+			user: props.userData,
 			issue: props.modeData.display,
 			notes: [],
 			targetNote: null
@@ -60,7 +61,8 @@ class ViewIssue extends Component {
 			const body = {
 				name: data.name,
 				content: data.content,
-				issue_id: data.issue_id
+				issue_id: data.issue_id,
+				owner_id: data.user.id
 			}
 
 			const response = await fetch(url, {
@@ -201,6 +203,7 @@ class ViewIssue extends Component {
 						changeView={this.changeView}
 						addNote={this.addNote}
 						issue={this.state.issue}
+						user={this.state.user}
 					/> 
 
 				: null }
@@ -248,6 +251,7 @@ class ViewIssue extends Component {
 						editNote={this.editNote}
 						deleteNote={this.deleteNote}
 						note={this.state.targetNote}
+						user={this.state.user}
 					/>
 				: null }
 			</div>
