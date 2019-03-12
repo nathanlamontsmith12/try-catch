@@ -66,7 +66,7 @@ class ManageCollab extends Component {
 				} else {
 					display = collab.user_id 
 				}
-				return <li key={i}> {collab.user_id} </li>				
+				return <li key={i}> {display} </li>				
 			})
 		}
 
@@ -75,6 +75,7 @@ class ManageCollab extends Component {
 				<br />
 				<br />
 				<h2> Manage Collaborations </h2>
+				<br />
 				<h4> Received: </h4>
 					{ received ? 
 						<ul> {received} </ul> 
@@ -82,6 +83,7 @@ class ManageCollab extends Component {
 						<p> None </p> 
 					}
 				<hr />
+				<br />
 				<h4> Sent: </h4>
 					{ sent ? 
 						<ul> {sent} </ul> 
@@ -89,6 +91,7 @@ class ManageCollab extends Component {
 						<p> None </p> 
 					}
 				<hr />
+				<br />
 				<h4> Active: </h4>
 					{ active ? 
 						<ul> {active} </ul> 
