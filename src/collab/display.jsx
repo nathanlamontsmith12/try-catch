@@ -14,32 +14,22 @@ class CollabDisplay extends Component {
 	}
 	render(){
 
-		let sharedIssueDisplay = []
-		// let otherIssueDisplay = [] 
-		
-		let otherIssueDisplay = this.state.issues;
+		console.log("COLLAB STATE: ", this.state)
 
+		let sharedIssueDisplayArray = []
 		let sharedDisplay = null
-		let otherDisplay = null
 
 		if (this.state.shared_issues && this.state.shared_issues.length > 0) {
 			this.state.shared_issues.forEach((shared_issue)=> {
 				if (shared_issue.collaboration_id === this.state.collab.id) {
-					sharedIssueDisplay.push(shared_issue)
+					sharedIssueDisplayArray.push(shared_issue)
 				}
 			})
 		}
 
-		// if (this.state.issues && this.state.issues.length > 0) {
-		// 	this.state.issues.forEach((issue)=> {
-		// 		if (!sharedIssueDisplay.includes(issue)){
-		// 			otherIssueDisplay.push(issue)
-		// 		}
-		// 	})
-		// }
 
-		if (sharedIssueDisplay.length > 0) {
-			sharedDisplay = sharedIssueDisplay.map((issue, i)=>{
+		if (sharedIssueDisplayArray.length > 0) {
+			sharedDisplay = sharedIssueDisplayArray.map((issue, i)=>{
 				return (
 					<li key={i}>
 						<button onClick={this.props.modeData.display.unshareIssue.bind(
@@ -55,47 +45,10 @@ class CollabDisplay extends Component {
 			})
 		}
 
-		// shareIssue func. needs (in order): 
-		// owner_id, collaborator_id, collaboration_id, issue_id
+		let issueDisplay = null;
 
-		// if (otherIssueDisplay.length > 0) {
-		// 	otherDisplay = otherIssueDisplay.map((issue, i)=>{
-
-		// 		let collaboratorId = this.state.collab.user_id;
-
-		// 		if (collaboratorId === issue.owner_id) {
-		// 			collaboratorId = this.state.collab.collaborator_id;
-		// 		}
-
-		// 		let isDisabled = false;
-
-		// 		this.state.shared_issues.forEach((shared_issue)=>{
-		// 			if (shared_issue.id === issue.id) {
-		// 				isDisabled = true 
-		// 			}
-		// 		})
-
-		// 		return (
-		// 			<li key={i}>
-		// 				<button 
-		// 					disabled={isDisabled}
-		// 					onClick={this.props.modeData.display.shareIssue.bind(
-		// 						null,
-		// 						this.state.user.id,
-		// 						collaboratorId,
-		// 						this.state.collab.id,
-		// 						issue.id
-		// 				)}> 
-		// 					Share 
-		// 				</button> 
-		// 				&nbsp; &nbsp; { issue.name }
-		// 			</li>
-		// 		)
-		// 	})
-		// }
-
-		if (otherIssueDisplay.length > 0) {
-			otherDisplay = otherIssueDisplay.map((issue, i)=>{
+		if (this.state.issues.length > 0) {
+			issueDisplay = this.state.issues.map((issue, i)=>{
 
 				let collaboratorId = this.state.collab.user_id;
 
@@ -139,12 +92,12 @@ class CollabDisplay extends Component {
 				{ this.state.displayName }
 				<hr />
 				<br />
-				<h4> Issues You Have Shared With { this.state.displayName } : </h4>
-				{ sharedIssueDisplay.length > 0 ? <ul>{sharedDisplay}</ul>: <p>None</p>}
+				<h4> Shared Issues: </h4>
+				{ sharedDisplay ? <ul>{sharedDisplay}</ul>: <p>None</p>}
 				<hr />
 				<br />
 				<h4> Your Issues: </h4>
-				{ otherIssueDisplay.length > 0 ? <ul>{otherDisplay}</ul> : <p>None</p> }
+				{ issueDisplay ? <ul>{issueDisplay}</ul> : <p>None</p> }
 			</div>
 		)
 	}
@@ -162,7 +115,7 @@ CREATE TABLE shared_issues(
 	collaborator_name VARCHAR(127),
 	collaboration_id INTEGER REFERENCES collaborations(id) ON DELETE CASCADE
 );
-
+				{ sharedDisplay2.length > 0 ? <ul>{sharedDisplay2}</ul> : <p>None</p> }
 */
 
 /*

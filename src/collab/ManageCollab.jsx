@@ -42,6 +42,8 @@ class ManageCollab extends Component {
 	}
 	render(){
 
+		console.log("Manage collab state: ", this.state)
+
 		// recieved, sent, active 
 		let received = null;
 		let sent = null;
