@@ -288,6 +288,14 @@ class Collab extends Component {
 			}
 
 			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			if (!responseJson.done) {
+				this.setState({
+					message: responseJson.message
+				})
+				throw new Error(responseJson.message)
+			}
 
 			this.setState({
 				message: "Shared issue successfully"
@@ -320,6 +328,14 @@ class Collab extends Component {
 			}
 
 			const responseJson = await response.json();
+			console.log("RESPONSE: ", responseJson)
+
+			if (!responseJson.done) {
+				this.setState({
+					message: responseJson.message
+				})
+				throw new Error(responseJson.message)
+			}
 
 			this.setState({
 				message: "Unshared issue successfully"

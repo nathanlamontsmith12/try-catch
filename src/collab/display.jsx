@@ -8,32 +8,35 @@ class CollabDisplay extends Component {
 			collab: props.modeData.display.collab,
 			shared_issues: props.modeData.display.shared_issues,
 			issues: props.modeData.display.issues,
-			displayName: props.modeData.display.displayName
+			displayName: props.modeData.display.displayName,
+			message: props.modeData.display.message
 		}
 	}
 	render(){
 
 		let sharedIssueDisplay = []
-		let otherIssueDisplay = [] 
+		// let otherIssueDisplay = [] 
+		
+		let otherIssueDisplay = this.state.issues;
 
 		let sharedDisplay = null
 		let otherDisplay = null
 
 		if (this.state.shared_issues && this.state.shared_issues.length > 0) {
-			this.state.shared_issues.forEach((issue)=> {
-				if (issue.collaboration_id === this.state.collab.id) {
-					sharedIssueDisplay.push(issue)
+			this.state.shared_issues.forEach((shared_issue)=> {
+				if (shared_issue.collaboration_id === this.state.collab.id) {
+					sharedIssueDisplay.push(shared_issue)
 				}
 			})
 		}
 
-		if (this.state.issues && this.state.issues.length > 0) {
-			this.state.issues.forEach((issue)=> {
-				if (!sharedIssueDisplay.includes(issue)){
-					otherIssueDisplay.push(issue)
-				}
-			})
-		}
+		// if (this.state.issues && this.state.issues.length > 0) {
+		// 	this.state.issues.forEach((issue)=> {
+		// 		if (!sharedIssueDisplay.includes(issue)){
+		// 			otherIssueDisplay.push(issue)
+		// 		}
+		// 	})
+		// }
 
 		if (sharedIssueDisplay.length > 0) {
 			sharedDisplay = sharedIssueDisplay.map((issue, i)=>{
@@ -55,6 +58,42 @@ class CollabDisplay extends Component {
 		// shareIssue func. needs (in order): 
 		// owner_id, collaborator_id, collaboration_id, issue_id
 
+		// if (otherIssueDisplay.length > 0) {
+		// 	otherDisplay = otherIssueDisplay.map((issue, i)=>{
+
+		// 		let collaboratorId = this.state.collab.user_id;
+
+		// 		if (collaboratorId === issue.owner_id) {
+		// 			collaboratorId = this.state.collab.collaborator_id;
+		// 		}
+
+		// 		let isDisabled = false;
+
+		// 		this.state.shared_issues.forEach((shared_issue)=>{
+		// 			if (shared_issue.id === issue.id) {
+		// 				isDisabled = true 
+		// 			}
+		// 		})
+
+		// 		return (
+		// 			<li key={i}>
+		// 				<button 
+		// 					disabled={isDisabled}
+		// 					onClick={this.props.modeData.display.shareIssue.bind(
+		// 						null,
+		// 						this.state.user.id,
+		// 						collaboratorId,
+		// 						this.state.collab.id,
+		// 						issue.id
+		// 				)}> 
+		// 					Share 
+		// 				</button> 
+		// 				&nbsp; &nbsp; { issue.name }
+		// 			</li>
+		// 		)
+		// 	})
+		// }
+
 		if (otherIssueDisplay.length > 0) {
 			otherDisplay = otherIssueDisplay.map((issue, i)=>{
 
@@ -67,7 +106,7 @@ class CollabDisplay extends Component {
 				let isDisabled = false;
 
 				this.state.shared_issues.forEach((shared_issue)=>{
-					if (shared_issue.id === issue.id) {
+					if (shared_issue.issue_id === issue.id) {
 						isDisabled = true 
 					}
 				})

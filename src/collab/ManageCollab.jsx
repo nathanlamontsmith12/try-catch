@@ -30,6 +30,7 @@ class ManageCollab extends Component {
 		}
 
 		this.state = {
+			message: props.data.message,
 			user: props.data.user,
 			issues: props.data.issues,
 			collaborations: props.data.collaborations,
@@ -108,7 +109,8 @@ class ManageCollab extends Component {
 										shared_issues: this.state.shared_issues,
 										shareIssue: this.props.shareIssue,
 										unshareIssue: this.props.unshareIssue,
-										displayName: display
+										displayName: display,
+										message: this.state.message
 									}
 								})
 						)}> 
