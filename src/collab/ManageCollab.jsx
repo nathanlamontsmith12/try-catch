@@ -42,7 +42,7 @@ class ManageCollab extends Component {
 	}
 	render(){
 
-		console.log("Manage collab state: ", this.state)
+		// console.log("Manage collab state: ", this.state)
 
 		// recieved, sent, active 
 		let received = null;
@@ -111,6 +111,7 @@ class ManageCollab extends Component {
 										shared_issues: this.state.shared_issues,
 										shareIssue: this.props.shareIssue,
 										unshareIssue: this.props.unshareIssue,
+										deleteCollab: this.props.deleteCollab,
 										displayName: display,
 										message: this.state.message
 									}

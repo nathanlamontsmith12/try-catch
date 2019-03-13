@@ -92,7 +92,7 @@ class ViewIssue extends Component {
 		}
 	}
 	editNote = async (data) => {
-		console.log("EDIT NOTE: ", data)
+		// console.log("EDIT NOTE: ", data)
 
 		try {
 

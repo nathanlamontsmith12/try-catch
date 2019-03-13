@@ -129,7 +129,7 @@ class App extends Component {
     return (
         <div className="App">
             { this.state.loggedIn && this.state.appModal ? <AppModal modalOff={this.modalOff} data={this.state} update={this.update} /> : null }
-            <Header loggedIn={this.state.loggedIn} appLogout={this.appLogout} />  
+            <Header loggedIn={this.state.loggedIn} appLogout={this.appLogout} username={this.state.username} />  
             <main>  
                 <Switch>
 

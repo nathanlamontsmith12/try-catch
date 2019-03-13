@@ -12,6 +12,10 @@ const StyledDiv = styled.div `
 	background: rgba(255, 99, 71, 0.8); 
 	height: 100%;
 
+	section .message {
+		margin-left: 20px;
+	}
+
 	.innerNav {
 		display: flex;
 		align-items: center;
@@ -350,7 +354,9 @@ class Collab extends Component {
 
 	}
 	render(){
-		console.log("COLLAB STATE: ", this.state)
+
+//		console.log("COLLAB STATE: ", this.state)
+
 		return (
 			<StyledDiv>
 				<section>
@@ -376,7 +382,7 @@ class Collab extends Component {
 						</span>
 					</div>
 					<br />
-					{ this.state.message ? <p> {this.state.message} </p> : <p> &nbsp; </p> }
+					<p className="message"> {this.state.message} &nbsp; </p>
 					{ this.state.view === "search" ? 
 						<SearchUsers 
 							data={this.state} 

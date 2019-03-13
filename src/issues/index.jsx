@@ -24,6 +24,10 @@ const StyledDiv = styled.div `
 		background: white;
 	}
 
+	section div {
+		margin-left: 20px;
+	}
+
 	section span, section ul {
 		margin-left: 40px;
 	}
@@ -144,11 +148,13 @@ class Issues extends Component {
 					</span>
 					<br />
 					<br />
-					<h4> Your Issues: </h4>
-					{ issues ? <ul> {issues} </ul> : <p> None </p> }
-					<br />
-					<h4> Shared Issues: </h4>
-					{ shared_issues ? <ul> {shared_issues} </ul> : <p> None </p> }
+					<div>
+						<h4> Your Issues: </h4>
+						{ issues ? <ul> {issues} </ul> : <p> None </p> }
+						<br />
+						<h4> Shared Issues: </h4>
+						{ shared_issues ? <ul> {shared_issues} </ul> : <p> None </p> }
+					</div>
 				</section>
 			</StyledDiv>
 		)

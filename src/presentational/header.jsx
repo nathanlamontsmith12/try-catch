@@ -23,7 +23,7 @@ function Header (props) {
 	return (
 		<header style={height} >
 				{ !props.loggedIn ? <h1> try <span>{ open }</span> </h1> : <h1> try <span>{ open }</span> <br /> <span>{ close }</span> catch </h1>}
-				{ props.loggedIn ? <Nav history={props.history} appLogout = {props.appLogout} /> : null }
+				{ props.loggedIn ? <Nav history={props.history} appLogout = {props.appLogout} username={props.username} /> : null }
 		</header>
 	)
 }

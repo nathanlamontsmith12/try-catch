@@ -64,3 +64,16 @@ main {
 .fullHeight {
 	height: 100%;
 }
+
+.outerNav {
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-end;
+}
+
+.outerNav h4 {
+	margin-right: 20px;
+	color: crimson;
+}

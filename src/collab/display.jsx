@@ -14,7 +14,7 @@ class CollabDisplay extends Component {
 	}
 	render(){
 
-		console.log("COLLAB STATE: ", this.state)
+		// console.log("COLLAB STATE: ", this.state)
 
 		let sharedIssueDisplayArray = []
 		let sharedDisplay = null
@@ -83,10 +83,19 @@ class CollabDisplay extends Component {
 			})
 		}
 
-		console.log("MANAGE COLLAB PROPS: ", this.props)
+		// console.log("MANAGE COLLAB PROPS: ", this.props)
 		return (
 			<div>
 				<h1> MANAGE COLLAB </h1>
+				<br />
+				<br />
+				<button 
+					onClick={this.props.modeData.display.deleteCollab.bind(
+						null, 
+						this.state.collab.id
+					)}> 
+					End Collaboration 
+				</button>
 				<br />
 				<h4> Collaborator: </h4>
 				{ this.state.displayName }
