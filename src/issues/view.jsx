@@ -172,18 +172,26 @@ class ViewIssue extends Component {
 
 			if (tempNotes.length > 1) {
 				tempNotes.sort( (a, b) => {
-					return a.id - b.id 
+					return b.id - a.id 
 				})
 			}
 
 			notes = tempNotes.map( (note, i) => {
+
+				let isHidden = false;
+				if (this.state.user.id !== note.owner_id) {
+					isHidden = true;
+				}
+
 				return (
 					<li key={i}> 
 						<hr />
 						<strong> {note.name} </strong> 
 						<br />
+						Posted by: {note.owner_name}
 						<button 
 							onClick={this.toEditView.bind(null, note.id)}
+							hidden={isHidden}
 						> 
 							Edit 
 						</button>
@@ -195,6 +203,11 @@ class ViewIssue extends Component {
 			})			
 		}
 
+		let isHidden2 = false;
+
+		if (this.state.user.id !== this.state.issue.owner_id) {
+			isHidden2 = true;
+		}
 
 		return(
 			<div>
@@ -213,6 +226,7 @@ class ViewIssue extends Component {
 						<h1> VIEW ISSUE </h1>
 
 						<span 
+							hidden={isHidden2}
 							className="fakeLink" 
 							style={{display: "block"}}
 							onClick={this.props.alterModal.bind(
@@ -226,7 +240,7 @@ class ViewIssue extends Component {
 							)}
 						> 
 							Edit / Remove Issue 
-						</span>
+						</span> 
 						
 						<h3> { this.props.modeData.display.name } </h3>
 						<p> { this.props.modeData.display.description } </p>

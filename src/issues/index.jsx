@@ -33,13 +33,16 @@ class Issues extends Component {
 	constructor(props){
 		super();
 		this.state = {
-			issues: props.issues
+			user: props.userData,
+			issues: props.issues,
+			shared_issues: props.shared_issues
 		}
 	}
 	shouldComponentUpdate(nextProps, nextState){
-		if (this.state.issues !== nextProps.issues) {
+		if (this.state.issues !== nextProps.issues || this.state.shared_issues !== nextProps.shared_issues) {
 			this.setState({
-				issues: nextProps.issues
+				issues: nextProps.issues,
+				shared_issues: nextProps.shared_issues
 			})
 		}
 		return true
@@ -53,10 +56,10 @@ class Issues extends Component {
 
 			issues = this.state.issues;
 
-			// sort oldest issues first: 
+			// sort newest issues first: 
 			if (this.state.issues.length > 1) {
 				issues.sort((a, b) => {
-					return a.id - b.id
+					return b.id - a.id
 				})				
 			}
 
@@ -82,6 +85,50 @@ class Issues extends Component {
 			})
 		}
 
+		let shared_issues = null;
+
+
+		if (this.state.shared_issues && this.state.shared_issues.length > 0) {
+
+			// filter out shared_issues that current user owns (these will already be listed
+			// under "your issues")
+			shared_issues = this.state.shared_issues.filter((issue)=>{
+				if (issue.owner_id === this.state.user.id) {
+					return false
+				} else {
+					return true 
+				}
+			});
+
+			// sort newest shared_issues first: 
+			if (this.state.shared_issues.length > 1) {
+				shared_issues.sort((a, b) => {
+					return b.id - a.id
+				})
+			}
+
+			shared_issues = shared_issues.map((shared_issue)=>{
+				return (
+					<li key={`issue-${shared_issue.id}`}>
+						<hr />
+						<strong>
+							<span 
+								className="fakeLink" 
+								onClick={this.props.modalOn.bind(
+									null, 
+									({form: "issue", action: "view", display: shared_issue})
+									)}>
+								{shared_issue.name}
+							</span>
+						</strong>
+						<br />
+						<p>{ shared_issue.description }</p>
+						<hr />
+					</li>
+				)				
+			})
+		}
+
 		return (
 			<StyledDiv>
 				<section>
@@ -97,9 +144,11 @@ class Issues extends Component {
 					</span>
 					<br />
 					<br />
-					<ul> 
-						{issues} 
-					</ul>
+					<h4> Your Issues: </h4>
+					{ issues ? <ul> {issues} </ul> : <p> None </p> }
+					<br />
+					<h4> Shared Issues: </h4>
+					{ shared_issues ? <ul> {shared_issues} </ul> : <p> None </p> }
 				</section>
 			</StyledDiv>
 		)
