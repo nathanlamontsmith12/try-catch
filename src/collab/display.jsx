@@ -4,6 +4,7 @@ class CollabDisplay extends Component {
 	constructor(props){
 		super();
 		this.state = {
+			user: props.userData,
 			collab: props.modeData.display.collab,
 			shared_issues: props.modeData.display.shared_issues,
 			issues: props.modeData.display.issues,
@@ -44,20 +45,33 @@ class CollabDisplay extends Component {
 						)}> 
 							Unshare 
 						</button> 
-						&nbsp; &nbsp; { issue.name }
+						<p>{ issue.name }</p> 
+						<p>Owner: { issue.owner_name } </p>
 					</li>
 				)
 			})
 		}
 
+		// shareIssue func. needs (in order): 
+		// owner_id, collaborator_id, collaboration_id, issue_id
+
 		if (otherIssueDisplay.length > 0) {
 			otherDisplay = otherIssueDisplay.map((issue, i)=>{
+
+				let collaboratorId = this.state.collab.user_id;
+
+				if (collaboratorId === issue.owner_id) {
+					collaboratorId = this.state.collab.collaborator_id;
+				}
+
 				return (
 					<li key={i}>
 						<button onClick={this.props.modeData.display.shareIssue.bind(
 							null,
-							issue.id,
-							this.state.collab.id
+							this.state.user.id,
+							collaboratorId,
+							this.state.collab.id,
+							issue.id
 						)}> 
 							Share 
 						</button> 
@@ -76,11 +90,11 @@ class CollabDisplay extends Component {
 				{ this.state.displayName }
 				<hr />
 				<br />
-				<h4> Shared Issues: </h4>
+				<h4> Issues Shared With You: </h4>
 				{ sharedIssueDisplay.length > 0 ? <ul>{sharedDisplay}</ul>: <p>None</p>}
 				<hr />
 				<br />
-				<h4> Your Other Issues: </h4>
+				<h4> Your Issues: </h4>
 				{ otherIssueDisplay.length > 0 ? <ul>{otherDisplay}</ul> : <p>None</p> }
 			</div>
 		)

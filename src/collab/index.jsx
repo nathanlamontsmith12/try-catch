@@ -261,13 +261,40 @@ class Collab extends Component {
 			return err
 		}
 	}
-	shareIssue = async (issue_id, collaboration_id) => {
+	shareIssue = async (owner_id, collaborator_id, collaboration_id, issue_id) => {
 		// needs: owner_id, collaborator_id, collaboration_id, issue_id 
 		try {
-//			const url = process.env.REACT_APP_API_URL 
-			console.log("SHARE ISSUE: ")
-			console.log("ISSUE ID: ", issue_id)
-			console.log("COLLAB ID: ", collaboration_id)
+
+			const url = process.env.REACT_APP_API_URL + "/api/v1/collab/share"
+
+			const body = {
+				owner_id: owner_id,
+				collaborator_id: collaborator_id,
+				collaboration_id: collaboration_id,
+				issue_id: issue_id
+			}
+
+			const response = await fetch(url, {
+				method: 'POST',
+				credentials: 'include',
+				body: JSON.stringify( body ),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			if (!response.ok) {
+				throw new Error("Server communication error. Failed to share file.")
+			}
+
+			const responseJson = await response.json();
+
+			this.setState({
+				message: "Shared issue successfully"
+			})
+
+			return responseJson
+
 		} catch(err){
 			console.log(err);
 			return err
@@ -277,8 +304,29 @@ class Collab extends Component {
 	unshareIssue = async (shared_issue_id) => {
 		// needs: shared_issue_id  
 		try {
-//			const url = process.env.REACT_APP_API_URL 
-			console.log("UNSHARE ISSUE: ", shared_issue_id)
+			const url = process.env.REACT_APP_API_URL + "/api/v1/collab/shared_issue/" + shared_issue_id
+			// console.log("UNSHARE ISSUE: ", shared_issue_id)
+
+			const response = await fetch(url, {
+				method: 'DELETE',
+				credentials: 'include',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			})
+
+			if (!response.ok) {
+				throw new Error("Server communication error. Failed to unshare file.")
+			}
+
+			const responseJson = await response.json();
+
+			this.setState({
+				message: "Unshared issue successfully"
+			})
+
+			return responseJson
+
 		} catch(err){
 			console.log(err);
 			return err
