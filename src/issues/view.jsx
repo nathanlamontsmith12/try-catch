@@ -22,7 +22,9 @@ class ViewIssue extends Component {
 	updateNotes = async () => {
 		try {
 
-			const url = process.env.REACT_APP_API_URL + "/api/v1/issue/note/" + this.state.issue.id
+			const id = this.state.issue.issue_id || this.state.issue.id
+
+			const url = process.env.REACT_APP_API_URL + "/api/v1/issue/note/" + id
 
 			const response = await fetch(url, {
 				method: 'GET',
@@ -63,6 +65,11 @@ class ViewIssue extends Component {
 				content: data.content,
 				issue_id: data.issue_id,
 				owner_id: data.user.id
+			}
+
+
+			if (this.state.issue.issue_id) {
+				body.issue_id = this.state.issue.issue_id
 			}
 
 			const response = await fetch(url, {
@@ -164,6 +171,8 @@ class ViewIssue extends Component {
 	}
 	render(){
 
+		console.log("VIEW ISSUE STATE: ", this.state)
+
 		let notes = "No notes for this issue"
 
 		if (this.state.notes && this.state.notes.length > 0) {
@@ -221,27 +230,29 @@ class ViewIssue extends Component {
 
 				: null }
 
-				{ this.state.view === "view" ? 
-					<div>
-						<h1> VIEW ISSUE </h1>
+				{ this.state.view === "view" ? <h1> VIEW ISSUE </h1> : null}
 
-						<span 
-							hidden={isHidden2}
-							className="fakeLink" 
-							style={{display: "block"}}
-							onClick={this.props.alterModal.bind(
-								null, 
-								({
-									action: "edit", 
-									display: this.props.modeData.display, 
-									owner_id: this.props.modeData.display.owner_id,
-									form: "issue"
-								})
-							)}
-						> 
-							Edit / Remove Issue 
-						</span> 
+				{this.state.view === "view" && !isHidden2 ? 
+					<span 
+						hidden={isHidden2}
+						className="fakeLink" 
+						style={{display: "block"}}
+						onClick={this.props.alterModal.bind(
+							null, 
+							({
+								action: "edit", 
+								display: this.props.modeData.display, 
+								owner_id: this.props.modeData.display.owner_id,
+								form: "issue"
+							})
+						)}
+					> 
+						Edit / Remove Issue 
+					</span> 
+					: null }
 						
+				{ this.state.view === "view" ?
+					<div>
 						<h3> { this.props.modeData.display.name } </h3>
 						<p> { this.props.modeData.display.description } </p>
 						

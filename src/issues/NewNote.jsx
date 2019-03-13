@@ -70,7 +70,7 @@ class NewNote extends Component {
 	}
 	render(){
 
-		console.log("NEW NOTE STATE: ", this.state)
+		// console.log("NEW NOTE STATE: ", this.state)
 
 		return (
 			<StyledDiv>

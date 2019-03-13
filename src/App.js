@@ -125,7 +125,7 @@ class App extends Component {
         }
     }
     render() {    
-       console.log("APP STATE: ", this.state)
+ //      console.log("APP STATE: ", this.state)
     return (
         <div className="App">
             { this.state.loggedIn && this.state.appModal ? <AppModal modalOff={this.modalOff} data={this.state} update={this.update} /> : null }
