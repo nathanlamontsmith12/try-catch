@@ -94,7 +94,28 @@ class ManageCollab extends Component {
 				} else {
 					display = collab.initiator  
 				}
-				return <li key={i}> <button> Manage </button> &nbsp; &nbsp; {display} </li>				
+				return (
+					<li key={i}> 
+						<button 
+							onClick={this.props.modalOn.bind(
+								null, 
+								({
+									form: "collab", 
+									action: "view", 
+									display: {
+										issues: this.state.issues, 
+										collab: collab,
+										shared_issues: this.state.shared_issues,
+										shareIssue: this.props.shareIssue,
+										unshareIssue: this.props.unshareIssue,
+										displayName: display
+									}
+								})
+						)}> 
+							Manage 
+						</button> &nbsp; &nbsp; {display} 
+					</li>
+				) 			
 			})
 		}
 

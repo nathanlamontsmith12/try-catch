@@ -52,6 +52,43 @@ class Collab extends Component {
 			view: view
 		})
 	}
+	shouldComponentUpdate(nextProps, nextState){
+		if (this.state.user !== nextProps.userData || 
+			this.state.issues !== nextProps.issues || 
+			this.state.shared_issues !== nextProps.shared_issues || 
+			this.state.collaborations !== nextProps.collaborations) {
+			
+			this.setState({
+				user: nextProps.userData,
+				issues: nextProps.issues,
+				shared_issues: nextProps.shared_issues,
+				collaborations: nextProps.collaborations
+			})
+
+		}
+
+		return true
+	}
+	updateCollab = async (refresh = false) => {
+		try {
+			
+			const update = await this.props.getUser(this.state.user.id);
+
+			const message = refresh || ""
+
+			this.setState({
+				user: update.user,
+				issues: update.issues,
+				collaborations: update.collaborations,
+				shared_issues: update.shared_issues,
+				message: message 
+			})
+
+		} catch(err){
+			console.log(err);
+			return err
+		}
+	}
 	searchUsers = async (query) => {
 		// needs: query  
 		try {
@@ -228,7 +265,9 @@ class Collab extends Component {
 		// needs: owner_id, collaborator_id, collaboration_id, issue_id 
 		try {
 //			const url = process.env.REACT_APP_API_URL 
-
+			console.log("SHARE ISSUE: ")
+			console.log("ISSUE ID: ", issue_id)
+			console.log("COLLAB ID: ", collaboration_id)
 		} catch(err){
 			console.log(err);
 			return err
@@ -239,7 +278,7 @@ class Collab extends Component {
 		// needs: shared_issue_id  
 		try {
 //			const url = process.env.REACT_APP_API_URL 
-
+			console.log("UNSHARE ISSUE: ", shared_issue_id)
 		} catch(err){
 			console.log(err);
 			return err
@@ -265,8 +304,15 @@ class Collab extends Component {
 						> 
 							Manage Collabs
 						</span>
+						<span 
+							className="fakeLink"
+							onClick={this.updateCollab.bind(null, true)}
+						>
+							Refresh
+						</span>
 					</div>
-					
+					<br />
+					{ this.state.message ? <p> {this.state.message} </p> : <p> &nbsp; </p> }
 					{ this.state.view === "search" ? 
 						<SearchUsers 
 							data={this.state} 
@@ -281,6 +327,8 @@ class Collab extends Component {
 							modalOn={this.props.modalOn}
 							acceptCollab={this.acceptCollab}
 							deleteCollab={this.deleteCollab}
+							shareIssue={this.shareIssue}
+							unshareIssue={this.unshareIssue}
 						/> 
 					: null}
 
