@@ -64,14 +64,24 @@ class CollabDisplay extends Component {
 					collaboratorId = this.state.collab.collaborator_id;
 				}
 
+				let isDisabled = false;
+
+				this.state.shared_issues.forEach((shared_issue)=>{
+					if (shared_issue.id === issue.id) {
+						isDisabled = true 
+					}
+				})
+
 				return (
 					<li key={i}>
-						<button onClick={this.props.modeData.display.shareIssue.bind(
-							null,
-							this.state.user.id,
-							collaboratorId,
-							this.state.collab.id,
-							issue.id
+						<button 
+							disabled={isDisabled}
+							onClick={this.props.modeData.display.shareIssue.bind(
+								null,
+								this.state.user.id,
+								collaboratorId,
+								this.state.collab.id,
+								issue.id
 						)}> 
 							Share 
 						</button> 
@@ -90,7 +100,7 @@ class CollabDisplay extends Component {
 				{ this.state.displayName }
 				<hr />
 				<br />
-				<h4> Issues Shared With You: </h4>
+				<h4> Issues You Have Shared With { this.state.displayName } : </h4>
 				{ sharedIssueDisplay.length > 0 ? <ul>{sharedDisplay}</ul>: <p>None</p>}
 				<hr />
 				<br />
