@@ -112,7 +112,7 @@ class Collab extends Component {
 			})
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			let exactMatch = null;
 
@@ -155,7 +155,7 @@ class Collab extends Component {
 			}
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			if (!responseJson.done) {
 				this.setState({
@@ -202,7 +202,7 @@ class Collab extends Component {
 			}
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			if (!responseJson.done) {
 				this.setState({
@@ -246,7 +246,7 @@ class Collab extends Component {
 			}
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			if (!responseJson.done) {
 				this.setState({
@@ -292,7 +292,7 @@ class Collab extends Component {
 			}
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			if (!responseJson.done) {
 				this.setState({
@@ -331,7 +331,7 @@ class Collab extends Component {
 			}
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			if (!responseJson.done) {
 				this.setState({
@@ -371,12 +371,12 @@ class Collab extends Component {
 						> 
 							Manage Collabs
 						</span>
-						<span 
+						{ this.state.view === "manage" ? <span 
 							className="fakeLink"
 							onClick={this.updateCollab.bind(null, "Refreshed")}
 						>
 							Refresh
-						</span>
+						</span> : null }
 					</div>
 					<br />
 					<p className="message"> {this.state.message} &nbsp; </p>
@@ -394,6 +394,7 @@ class Collab extends Component {
 							data={this.state}
 							getUser={this.props.getUser}
 							modalOn={this.props.modalOn}
+							modalOff={this.props.modalOff}
 							acceptCollab={this.acceptCollab}
 							deleteCollab={this.deleteCollab}
 							shareIssue={this.shareIssue}

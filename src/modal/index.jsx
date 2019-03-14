@@ -83,7 +83,7 @@ class AppModal extends Component {
 		return newBody;
 	}
 	newItem = async (data, kind) => {
-		console.log(`NEW ${kind}`, data)
+		// console.log(`NEW ${kind}`, data)
 
 		try {
 
@@ -104,12 +104,14 @@ class AppModal extends Component {
 			})
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			// load new user data into state: 
 			await this.props.update();
 
 			this.props.modalOff();
+
+			return responseJson 
 
 		} catch(err) {
 			console.log(err);
@@ -117,15 +119,15 @@ class AppModal extends Component {
 		}
 	}
 	editItem = async (data, kind) => {
-		console.log(`EDIT ${kind}`, data)
+		// console.log(`EDIT ${kind}`, data)
 
 		try {
 
 	  		const body = this.makeBody(data, kind);
-	  		console.log("NEW BODY: ", body)
+	  		// console.log("NEW BODY: ", body)
 
 			const url = process.env.REACT_APP_API_URL + "/api/v1/" + kind + "/" + body.id;
-			console.log("URL: ", url)			
+			// console.log("URL: ", url)			
 
 			const response = await fetch(url, {
 				method: 'PATCH',
@@ -137,12 +139,14 @@ class AppModal extends Component {
 			})
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			// load new user data into state: 
 			await this.props.update();
 
 			this.props.modalOff();
+
+			return responseJson
 
 		} catch(err) {
 			console.log(err);
@@ -150,7 +154,7 @@ class AppModal extends Component {
 		}
 	}
 	deleteItem = async (data, kind) => {
-		console.log(`DELETE ${kind}`, data)
+		// console.log(`DELETE ${kind}`, data)
 
 		try {
 
@@ -165,12 +169,14 @@ class AppModal extends Component {
 			})
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			// load new user data into state: 
 			await this.props.update();
 
 			this.props.modalOff();
+
+			return responseJson
 
 		} catch(err) {
 			console.log(err);
@@ -202,7 +208,8 @@ class AppModal extends Component {
 							newItem={this.newItem}
 							editItem={this.editItem}
 							deleteItem={this.deleteItem}							
-							alterModal={this.alterModal} 
+							alterModal={this.alterModal}
+							modalOff={this.props.modalOff} 
 						/> 
 					: null }
 					{ this.state.modeData.form === "profile" ? 

@@ -73,7 +73,7 @@ class Home extends Component {
 			})
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			if (!responseJson.done || !responseJson.login) {
 				this.setMessage("wrong username/password")
@@ -120,7 +120,7 @@ class Home extends Component {
 			})
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			if (!responseJson.done || !responseJson.login) {
 				this.setMessage("Account already exists")

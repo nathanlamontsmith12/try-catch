@@ -53,7 +53,7 @@ class ProfileEdit extends Component {
 	}
 	quickCheck = async () => {
 
-		console.log("quick check invoked")
+		// console.log("quick check invoked")
 
 		try { 
 
@@ -94,7 +94,7 @@ class ProfileEdit extends Component {
 				})
 
 				const responseJson = await response.json()
-				console.log("RESPONSE: ", responseJson)
+				// console.log("RESPONSE: ", responseJson)
 
 				if (!responseJson.done) {
 					pass.status = false;
@@ -114,7 +114,7 @@ class ProfileEdit extends Component {
 	submit = async (evt) => {
 
 		evt.preventDefault();
-		console.log("submit form triggered")
+		// console.log("submit form triggered")
 
 		try { 
 			const check = await this.quickCheck();

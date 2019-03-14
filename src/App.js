@@ -111,7 +111,7 @@ class App extends Component {
             }
 
             const responseJson = await response.json();
-            console.log("RESPONSE: ", responseJson)
+            // console.log("RESPONSE: ", responseJson)
             
             if (!responseJson.done) {
                 throw new Error("Failed to load user!")

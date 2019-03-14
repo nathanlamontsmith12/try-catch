@@ -42,35 +42,47 @@ class SearchUsers extends Component {
 		}
 
 	}
-	newCollaborator = (id, username) => {
-		console.log("Add collaborator: ", username)
-		console.log("Collaborator Id: ", id)
+	newCollaborator = async (id, username) => {
+		try {
 
-		this.props.addCollab(id, username)
+			await this.props.addCollab(id, username);
+
+			this.update()
+		} catch(err) {
+			console.log(err)
+			return err 
+		}
 	}
 	handleChange = (evt) => {
 		this.setState({
 			query: evt.currentTarget.value 
 		})
 	}
-	shouldComponentUpdate(nextProps, nextState){
+	async shouldComponentUpdate(nextProps, nextState){
 		
 		if (this.state.collaborations !== nextProps.data.collaborations) {
-			this.setState({
-				collaborations: nextProps.data.collaborations
-			})
+			this.update()
 		}
 
 		return true
 	}
-	async componentDidMount(){
-
+	update = async () => {
 		try {
 			const newData = await this.props.getUser(this.state.user.id)
 
 			this.setState({
 				collaborations: newData.collaborations
 			})
+		} catch(err) {
+			console.log(err)
+			return err
+		}		
+	}
+	async componentDidMount(){
+		try {
+
+			await this.update();
+		
 		} catch(err) {
 			console.log(err)
 			return err

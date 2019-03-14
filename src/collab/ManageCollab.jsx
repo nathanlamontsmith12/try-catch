@@ -18,8 +18,6 @@ class ManageCollab extends Component {
 			pendingCollaborationsSent: [],
 			pendingCollaborationsReceived: []
 		}
-
-		console.log(this.state)
 	}
 	async shouldComponentUpdate(nextProps, nextState){
 		if (this.props.data !== nextProps.data) {
@@ -36,7 +34,7 @@ class ManageCollab extends Component {
 		return true
 	}
 	setCollaborations = (collabArray) => {
-		console.log("SET COLLABORATIONS")
+
 		const pendingCollaborationsSent = [];
 		const pendingCollaborationsReceived = [];
 		const activeCollaborations = [];
@@ -67,9 +65,7 @@ class ManageCollab extends Component {
 	async componentDidMount(){
 		try {
 			const newData = await this.props.getUser(this.state.user.id);
-
-			console.log("COMPONENT DID MOUNT NEW DATA:", newData)
-
+			
 			this.setCollaborations(newData.collaborations);
 		} catch(err) {
 			console.log(err)
@@ -141,15 +137,17 @@ class ManageCollab extends Component {
 								({
 									form: "collab", 
 									action: "view", 
-									display: {
-										issues: this.state.issues, 
+									display: { 
 										collab: collab,
-										shared_issues: this.state.shared_issues,
+										displayName: display,
+										message: this.state.message,
+										// modalOff: this.props.modalOff,
+										getUser: this.props.getUser,
 										shareIssue: this.props.shareIssue,
 										unshareIssue: this.props.unshareIssue,
 										deleteCollab: this.props.deleteCollab,
-										displayName: display,
-										message: this.state.message
+										issues: this.state.issues,
+										shared_issues: this.state.shared_issues
 									}
 								})
 						)}> 
