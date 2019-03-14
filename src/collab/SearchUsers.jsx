@@ -8,17 +8,6 @@ const StyledDiv = styled.div `
 class SearchUsers extends Component {
 	constructor(props){
 		super();
-
-		let prevResults = [];
-		if (props.searchResults && props.searchResults.length > 0) {
-			prevResults = props.searchResults
-		} 
-
-		let prevExactMatch = null;
-		if (props.exactMatch) {
-			prevExactMatch = props.exactMatch
-		}
-
 		this.state = {
 			query: "",
 			lastQuery: "",
@@ -26,8 +15,8 @@ class SearchUsers extends Component {
 			issues: props.data.issues,
 			collaborations: props.data.collaborations,
 			shared_issues: props.data.shared_issues,
-			searchResults: prevResults,
-			exactMatch: prevExactMatch
+			searchResults: [],
+			exactMatch: null
 		}
 	}
 	submit = async (evt) => {
@@ -73,6 +62,19 @@ class SearchUsers extends Component {
 		}
 
 		return true
+	}
+	async componentDidMount(){
+
+		try {
+			const newData = await this.props.getUser(this.state.user.id)
+
+			this.setState({
+				collaborations: newData.collaborations
+			})
+		} catch(err) {
+			console.log(err)
+			return err
+		}
 	}
 	render(){
 

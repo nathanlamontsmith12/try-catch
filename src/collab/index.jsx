@@ -384,13 +384,15 @@ class Collab extends Component {
 						<SearchUsers 
 							data={this.state} 
 							searchUsers={this.searchUsers} 
-							addCollab={this.addCollab} 
+							addCollab={this.addCollab}
+							getUser={this.props.getUser} 
 						/> 
 					: null }
 
 					{ this.state.view === "manage" ? 
 						<ManageCollab 
 							data={this.state}
+							getUser={this.props.getUser}
 							modalOn={this.props.modalOn}
 							acceptCollab={this.acceptCollab}
 							deleteCollab={this.deleteCollab}

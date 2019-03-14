@@ -8,88 +8,49 @@ const StyledDiv = styled.div `
 class ManageCollab extends Component {
 	constructor(props){
 		super();
-
-		const pendingCollaborationsSent = [];
-		const pendingCollaborationsReceived = [];
-		const activeCollaborations = [];
-
-		if (props.data.collaborations && props.data.collaborations.length > 0) {
-			props.data.collaborations.forEach((collaboration)=>{
-			
-				if (!collaboration.pending) {
-					activeCollaborations.push(collaboration)
-				} else {
-					if (collaboration.user_id === props.data.user.id && collaboration.pending) {
-						pendingCollaborationsSent.push(collaboration)
-					}
-					if (collaboration.collaborator_id === props.data.user.id && collaboration.pending) {
-						pendingCollaborationsReceived.push(collaboration)
-					}
-				}
-			})
-		}
-
 		this.state = {
 			message: props.data.message,
 			user: props.data.user,
 			issues: props.data.issues,
 			collaborations: props.data.collaborations,
 			shared_issues: props.data.shared_issues,
-			activeCollaborations: activeCollaborations,
-			pendingCollaborationsSent: pendingCollaborationsSent,
-			pendingCollaborationsReceived: pendingCollaborationsReceived
+			activeCollaborations: [],
+			pendingCollaborationsSent: [],
+			pendingCollaborationsReceived: []
 		}
+
+		console.log(this.state)
 	}
-	shouldComponentUpdate(nextProps, nextState){
+	async shouldComponentUpdate(nextProps, nextState){
 		if (this.props.data !== nextProps.data) {
 
-			const pendingCollaborationsSent = [];
-			const pendingCollaborationsReceived = [];
-			const activeCollaborations = [];
-
-			if (nextProps.data.collaborations && nextProps.data.collaborations.length > 0) {
-				nextProps.data.collaborations.forEach((collaboration)=>{
-				
-					if (!collaboration.pending) {
-						activeCollaborations.push(collaboration)
-					} else {
-						if (collaboration.user_id === nextProps.data.user.id && collaboration.pending) {
-							pendingCollaborationsSent.push(collaboration)
-						}
-						if (collaboration.collaborator_id === nextProps.data.user.id && collaboration.pending) {
-							pendingCollaborationsReceived.push(collaboration)
-						}
-					}
-				})
+			try {
+				const newData = await this.props.getUser(this.state.user.id);
+				this.setCollaborations(newData.collaborations)
+			} catch (err) {
+				console.log(err)
+				return err
 			}
-
-			this.setState({
-				issues: nextProps.issues,
-				collaborations: nextProps.collaborations,
-				shared_issues: nextProps.shared_issues, 
-				activeCollaborations: activeCollaborations,
-				pendingCollaborationsSent: pendingCollaborationsSent,
-				pendingCollaborationsReceived: pendingCollaborationsReceived
-			})
 		}
 
 		return true
 	}
-	setCollaborations = () => {
+	setCollaborations = (collabArray) => {
+		console.log("SET COLLABORATIONS")
 		const pendingCollaborationsSent = [];
 		const pendingCollaborationsReceived = [];
 		const activeCollaborations = [];
 
-		if (this.props.data.collaborations && this.props.data.collaborations.length > 0) {
-			this.props.data.collaborations.forEach((collaboration)=>{
+		if (collabArray && collabArray.length > 0) {
+			collabArray.forEach((collaboration)=>{
 			
 				if (!collaboration.pending) {
 					activeCollaborations.push(collaboration)
 				} else {
-					if (collaboration.user_id === this.props.data.user.id && collaboration.pending) {
+					if (collaboration.user_id === this.state.user.id && collaboration.pending) {
 						pendingCollaborationsSent.push(collaboration)
 					}
-					if (collaboration.collaborator_id === this.props.data.user.id && collaboration.pending) {
+					if (collaboration.collaborator_id === this.state.user.id && collaboration.pending) {
 						pendingCollaborationsReceived.push(collaboration)
 					}
 				}
@@ -97,13 +58,23 @@ class ManageCollab extends Component {
 		}
 
 		this.setState({
+			collaborations: collabArray,
 			activeCollaborations: activeCollaborations,
 			pendingCollaborationsSent: pendingCollaborationsSent,
 			pendingCollaborationsReceived: pendingCollaborationsReceived
 		})
 	}
-	componentDidMount(){
-		this.setCollaborations();
+	async componentDidMount(){
+		try {
+			const newData = await this.props.getUser(this.state.user.id);
+
+			console.log("COMPONENT DID MOUNT NEW DATA:", newData)
+
+			this.setCollaborations(newData.collaborations);
+		} catch(err) {
+			console.log(err)
+			return err
+		}
 	}
 	render(){
 
