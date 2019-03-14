@@ -35,7 +35,7 @@ class ViewIssue extends Component {
 			})
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			let updatedNotes = []
 
@@ -54,7 +54,7 @@ class ViewIssue extends Component {
 		}
 	}
 	addNote = async (data) => {
-		console.log("ADD NOTE: ", data)
+		// console.log("ADD NOTE: ", data)
 
 		try {
 
@@ -82,9 +82,11 @@ class ViewIssue extends Component {
 			})
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			this.updateNotes();
+
+			return responseJson
 
 		} catch(err) {
 			console.log(err);
@@ -113,9 +115,11 @@ class ViewIssue extends Component {
 			})
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			this.updateNotes();
+
+			return responseJson
 
 		} catch(err) {
 			console.log(err);
@@ -123,7 +127,7 @@ class ViewIssue extends Component {
 		}
 	}
 	deleteNote = async (noteId) => {
-		console.log("DELETE NOTE: ", noteId)
+		// console.log("DELETE NOTE: ", noteId)
 
 		try {
 
@@ -138,9 +142,11 @@ class ViewIssue extends Component {
 			})
 
 			const responseJson = await response.json();
-			console.log("RESPONSE: ", responseJson)
+			// console.log("RESPONSE: ", responseJson)
 
 			this.updateNotes();
+
+			return responseJson
 
 		} catch(err) {
 			console.log(err);
@@ -171,7 +177,7 @@ class ViewIssue extends Component {
 	}
 	render(){
 
-		console.log("VIEW ISSUE STATE: ", this.state)
+		//console.log("VIEW ISSUE STATE: ", this.state)
 
 		let notes = "No notes for this issue"
 

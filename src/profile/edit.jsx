@@ -4,6 +4,16 @@ import styled from 'styled-components';
 const StyledDiv = styled.div `
 	form input {
 		display: block;
+		margin-top: 6px;
+	}
+
+	.twoColumn {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	.clearMargin {
+		margin-top: 0;
 	}
 `
 
@@ -165,10 +175,10 @@ class ProfileEdit extends Component {
 	}
 	render(){
 
-		let disable = true;
+		let disabled = true;
 
 		if (this.state.currentPassword) {
-			disable = false;
+			disabled = false;
 		}
 
 		return(
@@ -180,8 +190,9 @@ class ProfileEdit extends Component {
 					{ this.state.message ? 
 						<h4> {this.state.message} </h4> 
 					: 
-						<h4> Enter your password to make any changes </h4>
+						<h4> Password required to save changes </h4>
 					}
+					<br />
 					<input 
 						type="password" 
 						name="currentPassword" 
@@ -189,43 +200,66 @@ class ProfileEdit extends Component {
 						placeholder="Enter your password..." 
 						onChange={this.handleChange} 
 					/>
-					<br />
-					<br />
-					<input 
-						type="password" 
-						name="newPassword" 
-						value={this.state.newPassword} 
-						placeholder="Enter new password..." 
-						onChange={this.handleChange} 
-					/>
-					<input 
-						type="password" 
-						name="confirmation" 
-						value={this.state.confirmation} 
-						placeholder="Confirm new password..." 
-						onChange={this.handleChange} 
-					/>
-					<input 
-						type="email" 
-						name="email" 
-						value={this.state.email} 
-						placeholder="Enter new email..." 
-						onChange={this.handleChange} 
-					/>
-					<input 
-						type="text" 
-						name="bio" 
-						value={this.state.bio} 
-						placeholder="Enter your bio..." 
-						onChange={this.handleChange} 
-					/>
-					<button disabled={disable} onClick={this.submit}> Save Changes </button>
 				</form>
-				<span 
-					className="fakeLink" 
-					onClick={this.reset}> 
-						Reset Form 
-				</span>
+				<br />
+				<hr />
+				<br />
+				<form>
+					<div className="twoColumn">
+						<div className="clearMargin">
+							New password: <br />
+							<input 
+								type="password" 
+								name="newPassword" 
+								value={this.state.newPassword} 
+								placeholder="Enter new password..." 
+								onChange={this.handleChange} 
+							/>
+							<br />
+							Confirm: <br />
+							<input 
+								type="password" 
+								name="confirmation" 
+								value={this.state.confirmation} 
+								placeholder="Confirm new password..." 
+								onChange={this.handleChange} 
+							/>
+						 	<span 
+								className="fakeLink" 
+								onClick={this.reset}> 
+									Reset Form 
+							</span>
+						</div>
+						<div className="clearMargin">					
+							Email: <br />
+							<input 
+								type="email" 
+								name="email" 
+								value={this.state.email} 
+								placeholder="Enter new email..." 
+								onChange={this.handleChange} 
+							/>
+							<br /> 
+							Bio: <br />
+							<input 
+								type="text" 
+								name="bio" 
+								value={this.state.bio} 
+								placeholder="Enter your bio..." 
+								onChange={this.handleChange} 
+							/>							
+							{ disabled ? 
+								<span> &nbsp; </span> 
+								: 
+								<span 
+									className="fakeLink" 
+									onClick={this.submit}> 
+										Save Changes 
+								</span>
+							}
+						</div>
+					</div>
+				</form>
 			</StyledDiv>
 		)
 	}

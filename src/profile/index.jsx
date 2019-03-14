@@ -70,13 +70,24 @@ class Profile extends Component {
 						>
 						Edit Profile
 					</span>
-					<br />
-					<br />
 					<div>
+						<br />
+						<br />
+						<br />
+						<br />
+						<br />
 						<h3> { this.state.userData.username } </h3>
-						<h4> Registered: { reg } </h4>
+						<br />
+						<hr />
+						<br />
+						<h4> Registered: </h4>
+						<p> { reg } </p>
+						<br />
+						<br />
 						<h4> Preferred Email: </h4>
-						<h4><small> { this.state.userData.email } </small></h4>
+						<p> { this.state.userData.email } </p>
+						<br />
+						<br />
 						<p> { bio } </p>
 					</div>
 				</section>

@@ -41,7 +41,9 @@ class NewIssue extends Component {
 				<h1> NEW ISSUE </h1>
 				<br />
 				<br />
+				<br />
 				<form>
+					Name: <br />
 					<input 
 						name="name" 
 						type="text"
@@ -50,6 +52,8 @@ class NewIssue extends Component {
 						onChange={this.handleChange}
 					/> 
 					<br />
+					<br />
+					Description: <br />
 					<input 
 						name="description"
 						type="text" 
@@ -57,6 +61,7 @@ class NewIssue extends Component {
 						value={this.state.description}
 						onChange={this.handleChange}
 					/>
+					<br />
 					<br />
 					<button onClick={this.submit}> Create </button>
 				</form>

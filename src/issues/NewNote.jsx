@@ -8,18 +8,6 @@ const StyledDiv = styled.div `
 	}
 `
 
-	// position: absolute;
-	// height: 100%;
-	// width: 100%;
-	// z-index: 40;
-	// display: flex;
-	// justify-content: center;
-	// align-items: center;
-
-	// div {
-
-	// }
-
 class NewNote extends Component {
 	constructor(props){
 		super();
@@ -40,7 +28,7 @@ class NewNote extends Component {
 	submit = async (evt) => {
 
 		evt.preventDefault();
-		console.log("SUBMIT NOTE HIT")
+		// console.log("SUBMIT NOTE HIT")
 
 		if (!this.state.name || !this.state.content) {
 			this.setState({

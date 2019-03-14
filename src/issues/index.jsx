@@ -70,7 +70,6 @@ class Issues extends Component {
 			issues = issues.map((issue, i) => {
 				return (
 					<li key={`issue-${issue.id}`}>
-						<hr />
 						<strong>
 							<span 
 								className="fakeLink" 
@@ -114,7 +113,6 @@ class Issues extends Component {
 			shared_issues = shared_issues.map((shared_issue)=>{
 				return (
 					<li key={`issue-${shared_issue.id}`}>
-						<hr />
 						<strong>
 							<span 
 								className="fakeLink" 
@@ -148,12 +146,17 @@ class Issues extends Component {
 					</span>
 					<br />
 					<br />
+					<br />
 					<div>
 						<h4> Your Issues: </h4>
-						{ issues ? <ul> {issues} </ul> : <p> None </p> }
+						<br />
+						{ issues ? <ul className="noStyleList"> <hr /> {issues} </ul> : <p> None </p> }
+						<br />
+						<br />
 						<br />
 						<h4> Shared Issues: </h4>
-						{ shared_issues ? <ul> {shared_issues} </ul> : <p> None </p> }
+						<br />
+						{ shared_issues ? <ul className="noStyleList"> <hr /> {shared_issues} </ul> : <p> None </p> }
 					</div>
 				</section>
 			</StyledDiv>

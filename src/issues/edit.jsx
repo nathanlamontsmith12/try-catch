@@ -24,7 +24,7 @@ class EditIssue extends Component {
 	toggleCheck = (evt) => {
 		evt.preventDefault();
 
-		console.log("toggle check view triggered")
+		// console.log("toggle check view triggered")
 
 		if (this.state.check) {
 			this.setState({

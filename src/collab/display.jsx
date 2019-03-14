@@ -86,7 +86,7 @@ class CollabDisplay extends Component {
 	}
 	render(){
 
-		console.log("COLLAB STATE: ", this.state)
+		// console.log("COLLAB STATE: ", this.state)
 
 		let sharedIssueDisplayArray = []
 		let sharedDisplay = null
