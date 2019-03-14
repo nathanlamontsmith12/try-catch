@@ -144,9 +144,7 @@ class SearchUsers extends Component {
 		return (
 			<StyledDiv>
 				<br />
-				<br />
 				<h2> Find Collaborators By Username </h2>
-				<br />
 				<br />
 				<form>
 					<input 

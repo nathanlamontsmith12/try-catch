@@ -82,6 +82,7 @@ class Issues extends Component {
 						</strong>
 						<br />
 						<p>{ issue.description }</p>
+						<br />
 						<hr />
 					</li>
 				)
@@ -125,6 +126,7 @@ class Issues extends Component {
 						</strong>
 						<br />
 						<p>{ shared_issue.description }</p>
+						<br />
 						<hr />
 					</li>
 				)				

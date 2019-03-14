@@ -161,7 +161,6 @@ class ManageCollab extends Component {
 		return(
 			<StyledDiv>
 				<br />
-				<br />
 				<h2> Manage Collaborations </h2>
 				<br />
 				<h4> Received: </h4>
