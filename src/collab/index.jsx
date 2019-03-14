@@ -51,7 +51,10 @@ class Collab extends Component {
 			message: ""
 		}
 	}
-	changeView = (view) => {
+	changeView = async (view) => {
+		
+		await this.updateCollab();
+		
 		this.setState({
 			view: view
 		})
@@ -161,9 +164,8 @@ class Collab extends Component {
 				throw new Error(responseJson.message)
 			}
 
-			this.setState({
-				message: `Added collaborator — awaiting confirmation from ${username}`
-			})
+
+			this.updateCollab(`Added collaborator - awaiting confirmation from ${username}`)
 
 			return responseJson
 
@@ -209,9 +211,8 @@ class Collab extends Component {
 				throw new Error(responseJson.message)
 			}
 
-			this.setState({
-				message: "Activated collaboration"
-			})
+
+			this.updateCollab("Activated collaboration")
 
 			return responseJson
 
@@ -254,9 +255,8 @@ class Collab extends Component {
 				throw new Error(responseJson.message)
 			}
 
-			this.setState({
-				message: "Undid collaboration"
-			})
+
+			this.updateCollab("Dropped collaboration")
 
 			return responseJson
 
@@ -301,9 +301,8 @@ class Collab extends Component {
 				throw new Error(responseJson.message)
 			}
 
-			this.setState({
-				message: "Shared issue successfully"
-			})
+
+			this.updateCollab("Shared issue successfully")
 
 			return responseJson
 
@@ -341,9 +340,7 @@ class Collab extends Component {
 				throw new Error(responseJson.message)
 			}
 
-			this.setState({
-				message: "Unshared issue successfully"
-			})
+			this.updateCollab("Unshared issue successfully")
 
 			return responseJson
 
@@ -407,42 +404,6 @@ class Collab extends Component {
 		)
 	}
 }
-
-
-/*
-    modalOn = (data) => {
-        this.setState({
-            appModal: data
-        })
-    }
-
-<Route 
-	exact path="/collab" 
-	render={ (props) => <Collab {...props}
-	    modalOn={this.modalOn} 
-	    userData={this.state.userData} 
-	    getUser={this.getUser} 
-	    issues={this.state.issues}
-	    collaborations={this.state.collaborations}
-	    shared_issues={this.state.shared_issues}
-	/>
-
-getUser: ƒ (_x2)
-history: {length: 50, action: "PUSH", location: {…}, createHref: ƒ, push: ƒ, …}
-location: {pathname: "/collab", search: "", hash: "", state: undefined, key: "gbj5as"}
-match: {path: "/collab", url: "/collab", isExact: true, params: {…}}
-modalOn: ƒ (data)
-staticContext: undefined
-userData:
-bio: "Normal guy, here"
-email: "asdf@asdf.com"
-id: 4
-is_admin: false
-password_digest: "$2a$10$y5vmxBXasEj0UuGpc9SoeumksK.3EO0zNim3gp.lygiQStfbCbzpe"
-reg_time: 1552168474662
-username: "guy"
-
-*/
 
 
 export default Collab;

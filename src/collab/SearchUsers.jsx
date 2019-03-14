@@ -64,6 +64,16 @@ class SearchUsers extends Component {
 			query: evt.currentTarget.value 
 		})
 	}
+	shouldComponentUpdate(nextProps, nextState){
+		
+		if (this.state.collaborations !== nextProps.data.collaborations) {
+			this.setState({
+				collaborations: nextProps.data.collaborations
+			})
+		}
+
+		return true
+	}
 	render(){
 
 		let results = null
@@ -142,23 +152,26 @@ class SearchUsers extends Component {
 					</div>
 				: null }
 				<br />
+
 				{ this.state.exactMatch ? 
 					<div> 
 						<hr />
 						<h4>Exact Match: </h4>
-						<button 
-							onClick={this.newCollaborator.bind(
-								null, 
-								this.state.exactMatch.id, 
-								this.state.exactMatch.username
-							)}
-							disabled={exactMatchIsDisabled}
-						> 
-							Add  
-						</button> 
-						<span> &nbsp; &nbsp; {this.state.exactMatch.username} </span>
 					</div>
+				: null}
+
+				{ this.state.exactMatch && !exactMatchIsDisabled ? 
+					<button 
+						onClick={this.newCollaborator.bind(
+							null, 
+							this.state.exactMatch.id, 
+							this.state.exactMatch.username
+						)}> 
+						Add  
+					</button> 
 				: null }
+
+				{ this.state.exactMatch ? <span> &nbsp; &nbsp; {this.state.exactMatch.username} </span> : null }
 
 				<hr />
 				<br />
