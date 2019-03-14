@@ -8,15 +8,36 @@ const StyledDiv = styled.div `
 class ManageCollab extends Component {
 	constructor(props){
 		super();
+
+		const pendingCollaborationsSent = [];
+		const pendingCollaborationsReceived = [];
+		const activeCollaborations = [];
+
+		if (props.data.collaborations && props.data.collaborations.length > 0) {
+			props.data.collaborations.forEach((collaboration)=>{
+			
+				if (!collaboration.pending) {
+					activeCollaborations.push(collaboration)
+				} else {
+					if (collaboration.user_id === props.data.user.id && collaboration.pending) {
+						pendingCollaborationsSent.push(collaboration)
+					}
+					if (collaboration.collaborator_id === props.data.user.id && collaboration.pending) {
+						pendingCollaborationsReceived.push(collaboration)
+					}
+				}
+			})
+		}
+
 		this.state = {
 			message: props.data.message,
 			user: props.data.user,
 			issues: props.data.issues,
 			collaborations: props.data.collaborations,
 			shared_issues: props.data.shared_issues,
-			activeCollaborations: [],
-			pendingCollaborationsSent: [],
-			pendingCollaborationsReceived: []
+			activeCollaborations: activeCollaborations,
+			pendingCollaborationsSent: pendingCollaborationsSent,
+			pendingCollaborationsReceived: pendingCollaborationsReceived
 		}
 	}
 	shouldComponentUpdate(nextProps, nextState){

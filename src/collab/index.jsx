@@ -76,12 +76,12 @@ class Collab extends Component {
 
 		return true
 	}
-	updateCollab = async (refresh = false) => {
+	updateCollab = async (inputMessage = false) => {
 		try {
-			
+
 			const update = await this.props.getUser(this.state.user.id);
 
-			const message = refresh || ""
+			const message = inputMessage || ""
 
 			this.setState({
 				user: update.user,
@@ -373,7 +373,7 @@ class Collab extends Component {
 						</span>
 						<span 
 							className="fakeLink"
-							onClick={this.updateCollab.bind(null, true)}
+							onClick={this.updateCollab.bind(null, "Refreshed")}
 						>
 							Refresh
 						</span>
