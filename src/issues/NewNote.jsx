@@ -3,8 +3,25 @@ import styled from 'styled-components';
 
 // Styles: 
 const StyledDiv = styled.div `
-	input {
-		display: block;
+	h1 {
+		margin-left: -20px;
+	}
+
+	.overflow {
+		height: 120px;
+	}
+
+	textarea {
+		margin-top: 20px;
+	}
+
+	.nameText {
+		height: 40px;
+		maxlength: 120;
+	}
+
+	.contentText {
+		height: 160px;
 	}
 `
 
@@ -70,26 +87,30 @@ class NewNote extends Component {
 				</span>
 				<h1>ADD NOTE</h1>
 				<br />
-				<p> {this.state.message} &nbsp; </p>
-				<br />
-				<form>
-					<input 
-						type="text"
+				<form className="overflow">
+					Name: <br />
+					<textarea 
+						className="nameText"
 						name="name"
 						value={this.state.name}
-						placeholder="Enter note name..."
-						onChange={this.handleChange}
-					/>
-					<input 
-						type="text"
-						name="content"
-						value={this.state.content}
-						placeholder="Enter note text..."
 						onChange={this.handleChange}
 					/>
 					<br />
-					<button onClick={this.submit}> SAVE </button>
+					<br />
+					<br />
+					Content: <br />
+					<textarea 
+						className="contentText"
+						name="content"
+						value={this.state.content}
+						onChange={this.handleChange}
+					/>
+					<br />
+					<br />
+					<br />
 				</form>
+				<br />
+				<button onClick={this.submit}> SAVE </button>
 			</StyledDiv>
 		)
 	}

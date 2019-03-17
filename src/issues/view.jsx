@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 // Components: 
 import NewNote from './NewNote';
 import EditNote from './EditNote';
+
+// Styles: 
+const StyledDiv = styled.div `
+	h1 {
+		margin-left: -20px;
+	}
+
+	.overflow {
+		height: 200px;
+	}
+`
 
 
 class ViewIssue extends Component {
@@ -200,10 +212,11 @@ class ViewIssue extends Component {
 
 				return (
 					<li key={i}> 
-						<hr />
+						<br />
 						<strong> {note.name} </strong> 
 						<br />
 						Posted by: {note.owner_name}
+						<br />
 						<button 
 							onClick={this.toEditView.bind(null, note.id)}
 							hidden={isHidden}
@@ -225,7 +238,7 @@ class ViewIssue extends Component {
 		}
 
 		return(
-			<div>
+			<StyledDiv>
 				{ this.state.view === "new" ? 
 					<NewNote 
 						changeView={this.changeView}
@@ -258,7 +271,7 @@ class ViewIssue extends Component {
 					: null }
 						
 				{ this.state.view === "view" ?
-					<div>
+					<div className="overflow">
 						<h3> { this.props.modeData.display.name } </h3>
 						<p> { this.props.modeData.display.description } </p>
 						
@@ -285,7 +298,7 @@ class ViewIssue extends Component {
 						user={this.state.user}
 					/>
 				: null }
-			</div>
+			</StyledDiv>
 		)
 	}
 }

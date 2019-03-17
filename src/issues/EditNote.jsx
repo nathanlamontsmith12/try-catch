@@ -1,10 +1,37 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+// Styles: 
+const StyledDiv = styled.div `
+
+	h1 {
+		margin-left: -50px;
+	}
+
+	.overflow {
+		height: 100px;
+	}
+
+	textarea {
+		margin-top: 20px;
+	}
+
+	.nameText {
+		width: 92%;
+		height: 40px;
+		maxlength: 120;
+	}
+
+	.contentText {
+		width: 92%;
+		height: 160px;
+	}
+`
 
 class EditNote extends Component {
 	constructor(props){
 		super();
 		this.state = {
-			message: "",
 			name: props.note.name,
 			note: props.note,
 			content: props.note.content,
@@ -53,7 +80,7 @@ class EditNote extends Component {
 	}
 	render(){
 		return(
-			<div>
+			<StyledDiv>
 				<span
 					className="fakeLink"
 					onClick={this.props.changeView.bind(null, "view")}
@@ -62,42 +89,47 @@ class EditNote extends Component {
 				</span>
 				<h1>EDIT NOTE</h1>
 				<br />
-				<p> {this.state.message} &nbsp; </p>
-
 				<br />
-
 				<button 
 					onClick={this.props.deleteNote.bind(null, this.state.noteId)}
 				> 
 					Delete Note 
 				</button>
-
 				<br />
-
-				<form>
-					<input 
-						type="text"
+				<br />
+				<form className="overflow">
+					<br />
+					<br />
+					Name: <br />
+					<textarea 
+						className="nameText"
 						name="name"
 						value={this.state.name}
 						onChange={this.handleChange}
 					/>
 					<br />
-					<input 
-						type="text"
+					<br />
+					<br />
+					Content: <br />
+					<textarea 
+						className="contentText"
 						name="content"
 						value={this.state.content}
 						onChange={this.handleChange}
 					/>
 					<br />
 					<button onClick={this.submit}> SAVE CHANGES </button>
+					<br />
+					<br />
+					<br />
+					<span 
+						className="fakeLink"
+						onClick={this.reset}
+					>
+						Reset Form 
+					</span>
 				</form>
-				<span 
-					className="fakeLink"
-					onClick={this.reset}
-				>
-					Reset Form 
-				</span>
-			</div>
+			</StyledDiv>
 		)
 	}
 }

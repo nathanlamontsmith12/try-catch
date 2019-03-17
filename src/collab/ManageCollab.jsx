@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+
 const StyledDiv = styled.div `
 	margin-left: 20px;
-
+	
 	.overflow {
 		max-height: 190px;
 	}

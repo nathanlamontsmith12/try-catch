@@ -51,6 +51,14 @@ main {
 	min-height: 400px;
 }
 
+textarea {
+	width: 92%;
+}
+
+input {
+	maxlength: 60;
+}
+
 .fakeLink {
 	opacity: 0.7;
 }
@@ -85,5 +93,9 @@ main {
 }
 
 .overflow {
-	overflow: scroll;
+	overflow-y: scroll;
+}
+
+.nameText {
+	maxlength: 120;
 }

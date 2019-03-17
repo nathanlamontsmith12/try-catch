@@ -1,4 +1,30 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div `
+	h1 {
+		margin-left: -20px;
+	}
+
+	.overflow {
+		height: 200px;
+	}
+
+	textarea {
+		margin-top: 20px;
+	}
+
+	.nameText {
+		width: 350px;
+		height: 40px;
+		maxlength: 120;
+	}
+
+	.descriptionText {
+		width: 350px;
+		height: 160px;
+	}
+`
 
 class NewIssue extends Component {
 	constructor(props){
@@ -37,27 +63,25 @@ class NewIssue extends Component {
 	render(){
 //		console.log("NEW ISSUE PROPS: ", this.props);
 		return(
-			<div>
+			<StyledDiv>
 				<h1> NEW ISSUE </h1>
 				<br />
 				<br />
-				<br />
-				<form>
+				<form className="overflow">
 					Name: <br />
-					<input 
+					<textarea 
+						className="nameText"
 						name="name" 
-						type="text"
-						placeholder="Enter issue name..." 
 						value={this.state.name}
 						onChange={this.handleChange}
 					/> 
 					<br />
 					<br />
+					<br />
 					Description: <br />
-					<input 
+					<textarea 
+						className="descriptionText" 
 						name="description"
-						type="text" 
-						placeholder="Enter issue description..."
 						value={this.state.description}
 						onChange={this.handleChange}
 					/>
@@ -66,10 +90,8 @@ class NewIssue extends Component {
 					<button onClick={this.submit}> Create </button>
 				</form>
 				<br />
-				<br />
-				<br />
 				<span className="fakeLink" onClick={this.clear}> Clear Form </span>
-			</div>
+			</StyledDiv>
 		)
 	}
 }

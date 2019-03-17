@@ -1,4 +1,27 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+// Styles: 
+const StyledDiv = styled.div `
+	h1 {
+		margin-left: -50px;
+	}
+
+	.overflow {
+		height: 160px;
+	}
+
+	.nameText {
+		width: 350px;
+		height: 40px;
+		maxlength: 120;
+	}
+
+	.descriptionText {
+		width: 350px;
+		height: 160px;
+	}
+`
 
 class EditIssue extends Component {
 	constructor(props){
@@ -59,7 +82,7 @@ class EditIssue extends Component {
 	}
 	render(){
 		return(
-			<div>
+			<StyledDiv>
 				{ this.state.check ? 
 					<div className="check"> 
 						<p>Are you sure? This will delete all saved data 
@@ -90,29 +113,34 @@ class EditIssue extends Component {
 						</span>
 						<h1> EDIT ISSUE </h1>
 						<br />
+						<br />
 						<button onClick={this.toggleCheck}> Delete Issue </button>
 						<br />
-						<form>
-							<input 
+						<form className="overflow">
+							<br />
+							<br />
+							Name: <br />
+							<textarea
+								className="nameText" 
 								name="name" 
-								type="text"
-								placeholder="Enter issue name..." 
 								value={this.state.name}
 								onChange={this.handleChange}
 							/> 
 							<br />
-							<input 
+							<br />
+							Description: <br />
+							<textarea
+								className="descriptionText" 
 								name="description"
-								type="text" 
-								placeholder="Enter issue description..."
 								value={this.state.description}
 								onChange={this.handleChange}
 							/>
 							<br />
 							<button onClick={this.submit}> Save Changes </button>
+							<br />
+							<br />
+							<br />
 						</form>
-						<br />
-						<br />
 						<br />
 						<span 
 							className="fakeLink" 
@@ -121,7 +149,7 @@ class EditIssue extends Component {
 						</span>
 					</div> 
 				: null }
-			</div>
+			</StyledDiv>
 		)
 	}
 }

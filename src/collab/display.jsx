@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div `
+	h1 {
+		margin-left: -20px;
+	}
+
 	.overflow {
 		height: 200px;
 	}
