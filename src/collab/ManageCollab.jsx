@@ -187,9 +187,9 @@ class ManageCollab extends Component {
 					<br />
 					<h4> Active: </h4>
 						{ active ? 
-							<ul> {active} </ul> 
+							<ul> {active} <br /> <br /> <br /> </ul> 
 							: 
-							<p> None </p> 
+							<p> None <br /> <br /> <br /> </p> 
 						}
 				</div>
 			</StyledDiv>

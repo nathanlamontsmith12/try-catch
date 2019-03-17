@@ -1,4 +1,11 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div `
+	.overflow {
+		height: 200px;
+	}
+`
 
 class CollabDisplay extends Component {
 	constructor(props){
@@ -155,7 +162,7 @@ class CollabDisplay extends Component {
 		}
 		// console.log("MANAGE COLLAB PROPS: ", this.props)
 		return (
-			<div>
+			<StyledDiv>
 				<h1> MANAGE COLLAB </h1>
 				<br />
 				<button 
@@ -167,17 +174,22 @@ class CollabDisplay extends Component {
 				{ this.state.message ? <p> {this.state.message} </p> : <p> &nbsp; </p> }
 				<br />
 				<br />
-				<h4> Collaborator: </h4>
-				{ this.state.displayName }
-				<hr />
-				<br />
-				<h4> Shared Issues: </h4>
-				{ sharedDisplay ? <ul>{sharedDisplay}</ul> : <p>None</p>}
-				<hr />
-				<br />
-				<h4> Your Issues: </h4>
-				{ issueDisplay ? <ul>{issueDisplay}</ul> : <p>None</p> }
-			</div>
+				<div className="overflow">
+					<h4> Collaborator: </h4>
+					{ this.state.displayName }
+					<hr />
+					<br />
+					<h4> Shared Issues: </h4>
+					{ sharedDisplay ? <ul>{sharedDisplay}</ul> : <p>None</p>}
+					<hr />
+					<br />
+					<h4> Your Issues: </h4>
+					{ issueDisplay ? <ul>{issueDisplay}</ul> : <p>None</p> }
+					<br />
+					<br />
+					<br />
+				</div>
+			</StyledDiv>
 		)
 	}
 }
