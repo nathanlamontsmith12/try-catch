@@ -8,6 +8,10 @@ const StyledDiv = styled.div `
 	background: rgba(255, 99, 71, 0.8); 
 	height: 100%;
 
+	.overflow {
+		max-height: 220px;
+	}
+
 	div {
 		height: 100%;
 	}
@@ -149,7 +153,7 @@ class Issues extends Component {
 					<br />
 					<br />
 					<br />
-					<div>
+					<div className="overflow">
 						<h4> Your Issues: </h4>
 						<br />
 						{ issues ? <ul className="noStyleList"> <hr /> {issues} </ul> : <p> None </p> }

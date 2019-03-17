@@ -14,6 +14,10 @@ const StyledDiv = styled.div `
 	.overflow {
 		height: 200px;
 	}
+
+	ul {
+		list-style: none;
+	}
 `
 
 
@@ -212,10 +216,10 @@ class ViewIssue extends Component {
 
 				return (
 					<li key={i}> 
-						<br />
 						<strong> {note.name} </strong> 
 						<br />
 						Posted by: {note.owner_name}
+						<br />
 						<br />
 						<button 
 							onClick={this.toEditView.bind(null, note.id)}
@@ -224,8 +228,10 @@ class ViewIssue extends Component {
 							Edit 
 						</button>
 						<br />
+						<br />
 						<p> {note.content} </p>
 						<hr /> 
+						<br />
 					</li>
 				)
 			})			
@@ -284,6 +290,7 @@ class ViewIssue extends Component {
 						</span>
 
 						<ul>
+							<hr />
 							{ notes }
 						</ul>
 					</div> 
