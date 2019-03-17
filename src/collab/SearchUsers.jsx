@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.div `
 	margin-left: 20px;
+	
+	.overflow {
+		height: 120px;
+	}
 `
 
 class SearchUsers extends Component {
@@ -156,51 +160,48 @@ class SearchUsers extends Component {
 					<br />
 					<button onClick={this.submit}> Search </button>
 				</form>	
-				<br />				
-				{ this.state.lastQuery ? 
-					<div> 
-						<h4>Last Search Query: </h4>
-						<p> {this.state.lastQuery} </p>
-					</div>
-				: null }
+				<br />	
 				<br />
+				<div className="overflow"> 			
+					{ this.state.lastQuery ? <h4>Last Search Query: </h4> : null }
+					{ this.state.lastQuery ?  <p> {this.state.lastQuery} </p> : null }
+					<br />
 
-				{ this.state.exactMatch ? 
-					<div> 
-						<hr />
-						<h4>Exact Match: </h4>
-					</div>
-				: null}
+					{ this.state.exactMatch ? 
+						<div> 
+							<hr />
+							<h4>Exact Match: </h4>
+						</div>
+					: null}
 
-				{ this.state.exactMatch && !exactMatchIsDisabled ? 
-					<button 
-						onClick={this.newCollaborator.bind(
-							null, 
-							this.state.exactMatch.id, 
-							this.state.exactMatch.username
-						)}> 
-						Add  
-					</button> 
-				: null }
+					{ this.state.exactMatch && !exactMatchIsDisabled ? 
+						<button 
+							onClick={this.newCollaborator.bind(
+								null, 
+								this.state.exactMatch.id, 
+								this.state.exactMatch.username
+							)}> 
+							Add  
+						</button> 
+					: null }
 
-				{ this.state.exactMatch ? <span> &nbsp; &nbsp; {this.state.exactMatch.username} </span> : null }
+					{ this.state.exactMatch ? <span> &nbsp; &nbsp; {this.state.exactMatch.username} </span> : null }
 
-				<hr />
-				<br />
-				<h4> Results: </h4>
-				
-				{ this.state.searchResults && this.state.searchResults.length > 0 ? 
-					<div>
+					<hr />
+					<br />
+					<h4> Results: </h4>
+					{ this.state.searchResults && this.state.searchResults.length > 0 ? 
 						<ul>
 							{ results }
+							<br />
+							<br />
+							<br />
+							<br />
 						</ul>
-					</div> 
-				: 
-					<div>
+					: 
 						<p> No results from search query </p>
-					</div> 
-				}
-
+					}
+				</div>
 			</StyledDiv>
 		)
 	}

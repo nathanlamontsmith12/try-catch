@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 const StyledDiv = styled.div `
 	margin-left: 20px;
+
+	.overflow {
+		max-height: 190px;
+	}
 `
 
 class ManageCollab extends Component {
@@ -163,28 +167,31 @@ class ManageCollab extends Component {
 				<br />
 				<h2> Manage Collaborations </h2>
 				<br />
-				<h4> Received: </h4>
-					{ received ? 
-						<ul> {received} </ul> 
-						: 
-						<p> None </p> 
-					}
-				<hr />
 				<br />
-				<h4> Sent: </h4>
-					{ sent ? 
-						<ul> {sent} </ul> 
-						: 
-						<p> None </p> 
-					}
-				<hr />
-				<br />
-				<h4> Active: </h4>
-					{ active ? 
-						<ul> {active} </ul> 
-						: 
-						<p> None </p> 
-					}
+				<div className="overflow">
+					<h4> Received: </h4>
+						{ received ? 
+							<ul> {received} </ul> 
+							: 
+							<p> None </p> 
+						}
+					<hr />
+					<br />
+					<h4> Sent: </h4>
+						{ sent ? 
+							<ul> {sent} </ul> 
+							: 
+							<p> None </p> 
+						}
+					<hr />
+					<br />
+					<h4> Active: </h4>
+						{ active ? 
+							<ul> {active} </ul> 
+							: 
+							<p> None </p> 
+						}
+				</div>
 			</StyledDiv>
 		)
 	}
